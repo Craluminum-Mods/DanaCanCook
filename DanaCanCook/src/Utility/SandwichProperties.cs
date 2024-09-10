@@ -75,19 +75,15 @@ public class SandwichProperties
         stackWithoutSandwichAttributes.Attributes.RemoveAttribute(attributeSandwichLayers);
         IEnumerable<ItemStack> stacks = new List<ItemStack>() { stackWithoutSandwichAttributes }.Concat(GetOrdered(world));
 
-        bool any = false;
-        foreach (ItemStack stack in stacks)
+        dsc.AppendLine(Lang.Get(langSandwichContents));
+        foreach (ItemStack stack in stacks.TakeLast(6))
         {
-            if (stack != null && stack.StackSize > 0)
+            if (stack == null || stack.StackSize <= 0)
             {
-                if (!any)
-                {
-                    dsc.AppendLine(Lang.Get(langContents));
-                    any = true;
-                }
-
-                dsc.AppendLine("- " + stack.GetName());
+                continue;
             }
+
+            dsc.AppendLine("- " + stack.GetName());
         }
 
         return dsc;

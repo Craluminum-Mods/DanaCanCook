@@ -126,7 +126,6 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     {
         ItemSlot slot = inventory.First();
         sb.AppendLine(slot.Empty ? Lang.Get(langEmpty) : Lang.Get(langContents0x1, slot.StackSize, slot.GetStackName()));
-        sb.AppendLine("Description: ");
 
         if (slot.Empty)
         {
@@ -139,10 +138,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             return;
         }
 
-        foreach (ItemStack stack in props.GetOrdered(forPlayer.Entity.World))
-        {
-            sb.AppendLine(Lang.Get(langContents0x1, stack.StackSize, stack.GetName()));
-        }
+        props.GetDescription(slot, sb, Api.World);
     }
 
     protected override float[][] genTransformationMatrices()

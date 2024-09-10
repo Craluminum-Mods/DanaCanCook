@@ -17,6 +17,7 @@ public static class Constants
     public const string langEmpty = "Empty";
     public const string langContents0x1 = "Contents: {0}x {1}";
     public const string langContents = "Contents: ";
+    public const string langSandwichContents = $"{ModId}:contents-sandwich";
     public const string langSandwich = $"{ModId}:item-sandwich";
 
     public const string cuttingBoardInvClassName = $"{ModId}:cuttingBoard";
