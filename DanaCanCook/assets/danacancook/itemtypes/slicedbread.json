@@ -8,7 +8,6 @@
     ],
     "shape": { "base": "item/slicedbread" },
     "textures": {
-        //"*-perfect": { "bread": { "base": "game:item/food/grain/{type}bread" } }
         "bread": { "base": "game:item/food/grain/{type}bread" }
     },
     "creativeinventory": { "general": ["*"], "items": ["*"], "danacancook": ["*"] },

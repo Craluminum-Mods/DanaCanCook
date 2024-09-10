@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vintagestory.API.Common;
@@ -25,7 +24,11 @@ public class SandwichProperties
 
     public bool TryAdd(ItemStack stack)
     {
-        if (stack == null || stack.StackSize == 0) return false;
+        if (stack == null || stack.StackSize == 0)
+        {
+            return false;
+        }
+
         Layers[Layers.Count] = stack;
         return true;
     }
@@ -68,7 +71,6 @@ public class SandwichProperties
 
     public StringBuilder GetDescription(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world)
     {
-
         ItemStack stackWithoutSandwichAttributes = inSlot.Itemstack.Clone();
         stackWithoutSandwichAttributes.Attributes.RemoveAttribute(attributeSandwichLayers);
         IEnumerable<ItemStack> stacks = new List<ItemStack>() { stackWithoutSandwichAttributes }.Concat(GetOrdered(world));

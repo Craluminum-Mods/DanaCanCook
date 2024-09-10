@@ -12,7 +12,6 @@
     "shape": { "base": "block/cuttingboard" },
     "textures": {
         "oak": { "base": "game:block/wood/debarked/{wood}" },
-        //"oak": { "base": "game:block/wood/debarked/oak" },
         "surface": { "base": "game:block/wood/shelf/surface" }
     },
     "blockmaterial": "Wood",
