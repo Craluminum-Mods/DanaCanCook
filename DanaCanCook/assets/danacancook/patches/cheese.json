@@ -1,0 +1,22 @@
+[
+    {
+        "op": "addmerge",
+        "file": "game:itemtypes/food/cheese.json",
+        "path": "/attributes/danacancook:whenOnSandwichByType",
+        "value": {
+          "*-blue-1slice":{
+            "shape": { "base": "danacancook:item/simple/cheese-blue-1slice" },
+            "size": 0.03125, // 1/32
+            "rotate": true,
+            "rotation": { "avg": 1, "var": 0.1 },
+          },
+          "*-cheddar-1slice":{
+            "shape": { "base": "danacancook:item/simple/cheese-cheddar-1slice" },
+            "size": 0.03125, // 1/32
+            "rotate": true,
+            "rotation": { "avg": 1, "var": 0.1 },
+          }
+        },
+        "side": "Server"
+    }
+]

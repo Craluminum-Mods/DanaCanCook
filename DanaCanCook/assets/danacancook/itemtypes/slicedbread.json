@@ -1,0 +1,68 @@
+{
+    "code": "slicedbread",
+    "class": "DanaCanCook.ItemSandwich",
+    "maxstacksize": 64,
+    "variantgroups": [
+        { "code": "type", "states": ["spelt", "rye", "flax", "rice", "cassava", "amaranth", "sunflower"] },
+        { "code": "state", "states": ["perfect"] }
+    ],
+    "shape": { "base": "item/slicedbread" },
+    "textures": {
+        //"*-perfect": { "bread": { "base": "game:item/food/grain/{type}bread" } }
+        "bread": { "base": "game:item/food/grain/{type}bread" }
+    },
+    "creativeinventory": { "general": ["*"], "items": ["*"], "danacancook": ["*"] },
+    "attributes": {
+        "displaycaseable": true,
+        "shelvable": true,
+        "danacancook:canPutOnCuttingBoard": true,
+        "danacancook:whenOnSandwich": {
+            "shape": { "base": "danacancook:item/simple/slicedbread" },
+            //"textures": {
+            //  "bread": { "base": "game:item/food/grain/{type}bread" }
+            //},
+            "size": 0.0625, // 1/16
+            "rotate": true,
+            "rotation": { "avg": 1, "var": 0.1 }
+        }
+    },
+    "nutritionPropsByType": {
+        "*-flax-*": { "saturation": 80, "foodcategory": "Grain" },
+        "*-rice-*": { "saturation": 165, "foodcategory": "Grain" },
+        "*": { "saturation": 150, "foodcategory": "Grain" }
+    },
+    "transitionableProps": [
+        {
+            "type": "Perish",
+            "freshHours": { "avg": 192 },
+            "transitionHours": { "avg": 36 },
+            "transitionedStack": { "type": "item", "code": "game:rot" },
+            "transitionRatio": 1
+        }
+    ],
+    "materialDensity": 200,
+    "guiTransform": {
+        "translation": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": -30, "y": 26, "z": 180 },
+        "origin": { "x": 0.52, "y": 0.2, "z": 0.5 },
+        "scale": 3
+    },
+    "groundTransform": {
+        "translation": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": 0, "y": 0, "z": 1 },
+        "origin": { "x": 0.5, "y": 0, "z": 0.5 },
+        "scale": 4.5
+    },
+    "tpHandTransform": {
+        "translation": { "x": -0.74, "y": -0.06, "z": -0.5 },
+        "rotation": { "x": 87, "y": -180, "z": 90 },
+        "origin": { "x": 0.5, "y": 0.13, "z": 0.5 },
+        "scale": 1
+    },
+    "fpHandTransform": {
+        "translation": { "x": 0, "y": 0.24, "z": 0.3 },
+        "rotation": { "x": 104, "y": 0, "z": 71 },
+        "origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
+        "scale": 2.5
+    }
+}

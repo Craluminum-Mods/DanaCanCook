@@ -1,0 +1,28 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"waxedblue": "block/food/dairy/waxedblue"
+	},
+	"elements": [
+		{
+			"name": "CheeseW",
+			"from": [ 6.25, 0.0, 5.5 ],
+			"to": [ 9.75, 0.5, 10.5 ],
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
+			"faces": {
+				"north": { "texture": "#waxedblue", "uv": [ 12.5, 8.0, 16.0, 8.5 ] },
+				"east": { "texture": "#waxedblue", "uv": [ 11.0, 10.0, 16.0, 10.5 ], "windMode": [-1,-1,-1,-1] },
+				"south": { "texture": "#waxedblue", "uv": [ 8.0, 8.0, 11.5, 8.5 ], "windMode": [-1,-1,-1,-1] },
+				"west": { "texture": "#waxedblue", "uv": [ 8.0, 8.0, 13.0, 8.5 ], "windMode": [-1,-1,-1,-1] },
+				"up": { "texture": "#waxedblue", "uv": [ 10.0, 1.0, 13.5, 6.0 ], "windMode": [-1,-1,-1,-1] },
+				"down": { "texture": "#waxedblue", "uv": [ 11.0, 4.0, 14.5, 9.0 ], "windMode": [-1,-1,-1,-1] }
+			}
+		}
+	]}

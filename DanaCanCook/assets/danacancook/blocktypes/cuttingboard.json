@@ -1,0 +1,49 @@
+{
+    "code": "cuttingboard",
+    "class": "DanaCanCook.BlockCuttingBoard",
+    "entityClass": "DanaCanCook.CuttingBoard",
+    "variantgroups": [{ "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" }],
+    "attributes": {
+        "handbook": { "groupBy": ["cuttingboard-*"] },
+        "offsets": [{ "x": 0, "y": 0.0625, "z": 0 }]
+    },
+    "behaviors": [],
+    "creativeinventory": { "general": ["*"], "danacancook": ["*"] },
+    "shape": { "base": "block/cuttingboard" },
+    "textures": {
+        "oak": { "base": "game:block/wood/debarked/{wood}" },
+        //"oak": { "base": "game:block/wood/debarked/oak" },
+        "surface": { "base": "game:block/wood/shelf/surface" }
+    },
+    "blockmaterial": "Wood",
+    "replaceable": 900,
+    "resistance": 3,
+    "lightAbsorption": 0,
+    "sideAo": { "all": false },
+    "sidesolid": { "all": false },
+    "sideopaque": { "all": false },
+    "materialDensity": 600,
+    "sounds": {
+        "place": "game:block/planks",
+        "hit": "game:block/planks",
+        "break": "game:block/planks",
+        "walk": "game:walk/wood"
+    },
+
+    "tpHandTransform": {
+        "translation": { "x": -0.9, "y": -3.7, "z": -3.35 },
+        "rotation": { "x": 0, "y": 90, "z": -102 },
+        "scale": 0.25
+    },
+    "fpHandTransform": {
+        "scale": 0.4
+    },
+    "guiTransform": {
+        "rotation": { "x": -35, "y": -100, "z": 23 },
+        "origin": { "x": 0.5, "y": 0, "z": 0.5 },
+        "scale": 1.75
+    },
+
+    "collisionBox": { "x1": 0.125, "y1": 0, "z1": 0.25, "x2": 0.875, "y2": 0.0625, "z2": 0.75 },
+    "selectionBox": { "x1": 0.125, "y1": 0, "z1": 0.25, "x2": 0.875, "y2": 0.0625, "z2": 0.75 }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "code",
+  "modid": "danacancook",
+  "name": "Dana Can Cook",
+  "authors": [ "Craluminum2413" ],
+  "description": "Make sandwiches and many other things",
+  "version": "1.0.0",
+  "dependencies": {
+    "game": "1.19.0"
+  }
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeBuild", "CakeBuild\CakeBuild.csproj", "{B67E460B-D55D-4E63-B773-4F1916BDEA81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanaCanCook", "DanaCanCook\DanaCanCook.csproj", "{E1892AEF-256D-4B7C-B6D7-C7D8D8616AE5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B67E460B-D55D-4E63-B773-4F1916BDEA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B67E460B-D55D-4E63-B773-4F1916BDEA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B67E460B-D55D-4E63-B773-4F1916BDEA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B67E460B-D55D-4E63-B773-4F1916BDEA81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1892AEF-256D-4B7C-B6D7-C7D8D8616AE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1892AEF-256D-4B7C-B6D7-C7D8D8616AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1892AEF-256D-4B7C-B6D7-C7D8D8616AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1892AEF-256D-4B7C-B6D7-C7D8D8616AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7E75B9D-9FB1-4975-BC83-F621EEC45C43}
+	EndGlobalSection
+EndGlobal
