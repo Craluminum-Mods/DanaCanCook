@@ -91,9 +91,7 @@ public class SandwichProperties
     
     public SandwichNutritionProperties GetNutritionProperties(ItemSlot inSlot, IWorldAccessor world, Entity forEntity)
     {
-        FoodNutritionProperties nutritionProps = inSlot.Itemstack.Collectible.GetNutritionProperties(world, inSlot.Itemstack, forEntity);
         IEnumerable<ItemStack> stacks = new List<ItemStack>() { inSlot.Itemstack }.Concat(GetOrdered(world));
-
         SandwichNutritionProperties sandwichNutritionProps = new SandwichNutritionProperties();
         foreach (ItemStack stack in stacks)
         {
