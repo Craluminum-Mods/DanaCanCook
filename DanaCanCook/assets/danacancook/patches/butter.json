@@ -1,0 +1,14 @@
+[
+    {
+        "op": "addmerge",
+        "file": "game:itemtypes/food/butter.json",
+        "path": "/attributes/danacancook:whenOnSandwich",
+        "value": {
+          "shape": { "base": "danacancook:item/simple/0.1voxel/butter" },
+          "size": 0.00625, // 0.1/16
+          "rotate": true,
+          "copyLastRotation": true
+        },
+        "side": "Server"
+    }
+]

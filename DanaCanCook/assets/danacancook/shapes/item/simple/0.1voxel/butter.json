@@ -1,0 +1,28 @@
+{
+	"editor": {
+		"allAngles": true,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"cheddarjack": "block/food/dairy/cheddarjack"
+	},
+	"elements": [
+		{
+			"name": "Cube4",
+			"from": [ 6.33, 0.1, 5.53 ],
+			"to": [ 9.73, 0.2, 10.43 ],
+			"rotationOrigin": [ 8.0, 0.1, 8.0 ],
+			"faces": {
+				"north": { "texture": "#cheddarjack", "uv": [ 9.5, 13.0, 12.5, 13.5 ] },
+				"east": { "texture": "#cheddarjack", "uv": [ 9.5, 13.5, 14.0, 14.0 ] },
+				"south": { "texture": "#cheddarjack", "uv": [ 10.0, 14.0, 13.0, 14.5 ] },
+				"west": { "texture": "#cheddarjack", "uv": [ 10.0, 13.5, 14.5, 14.0 ] },
+				"up": { "texture": "#cheddarjack", "uv": [ 8.5, 12.5, 13.0, 15.5 ], "rotation": 90 },
+				"down": { "texture": "#cheddarjack", "uv": [ 8.5, 13.0, 13.0, 16.0 ], "rotation": 90 }
+			}
+		}
+	]}
