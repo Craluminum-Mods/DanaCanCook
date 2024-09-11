@@ -12,7 +12,8 @@
     },
     "behaviors": [
         { "name": "HorizontalOrientable" },
-        { "name": "RightClickPickup" }
+        { "name": "RightClickPickup" },
+        { "name": "Unstable" }
     ],
     "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "danacancook": ["*-north"] },
     "shape": {
