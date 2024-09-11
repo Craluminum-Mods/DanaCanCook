@@ -7,6 +7,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
+using Vintagestory.GameContent;
 
 namespace DanaCanCook;
 
@@ -91,16 +92,10 @@ public class SandwichProperties
     
     public SandwichNutritionProperties GetNutritionProperties(ItemSlot inSlot, IWorldAccessor world, Entity forEntity)
     {
-        IEnumerable<ItemStack> stacks = new List<ItemStack>() { inSlot.Itemstack }.Concat(GetOrdered(world));
+        ItemStack[] stacks = new List<ItemStack>() { inSlot.Itemstack }.Concat(GetOrdered(world)).ToArray();
         SandwichNutritionProperties sandwichNutritionProps = new SandwichNutritionProperties();
-        foreach (ItemStack stack in stacks)
-        {
-            if (stack != null && stack.StackSize > 0)
-            {
-                sandwichNutritionProps.NutritionPropertiesMany.Add(stack.Collectible.GetNutritionProperties(world, stack, forEntity));
-            }
-        }
-
+        FoodNutritionProperties[] nutritionPropsArray = BlockMeal.GetContentNutritionProperties(world, inSlot, stacks, forEntity as EntityAgent);
+        sandwichNutritionProps.NutritionPropertiesMany.AddRange(nutritionPropsArray);
         return sandwichNutritionProps;
     }
 
