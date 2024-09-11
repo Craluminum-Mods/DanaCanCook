@@ -1,0 +1,22 @@
+[
+    {
+        "ingredientPattern": "PO,PP",
+        "ingredients": {
+            "P": { "type": "item", "code": "game:plank-*", "name": "wood" },
+            "O": { "type": "item", "code": "game:beeswax" }
+        },
+        "width": 2,
+        "height": 2,
+        "output": { "type": "block", "code": "danacancook:cuttingboard-{wood}" }
+    },
+    {
+        "ingredientPattern": "PO,PP",
+        "ingredients": {
+            "P": { "type": "item", "code": "game:plank-*", "name": "wood" },
+            "O": { "type": "item", "code": "game:fat" }
+        },
+        "width": 2,
+        "height": 2,
+        "output": { "type": "block", "code": "danacancook:cuttingboard-{wood}" }
+    }
+]
