@@ -1,4 +1,7 @@
-﻿using Vintagestory.API.Common;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
 namespace DanaCanCook;
@@ -6,6 +9,8 @@ namespace DanaCanCook;
 public class WhenOnSandwichProperties
 {
     public CompositeShape Shape { get; set; }
+
+    public Dictionary<string, CompositeTexture> Textures { get; set; } = new();
 
     public float Size { get; set; } = 0.0625f;
 
@@ -15,7 +20,6 @@ public class WhenOnSandwichProperties
 
     public NatFloat Rotation { get; set; } = NatFloat.One;
 
-    //public Dictionary<string, CompositeTexture> Textures { get; set; } = new();
 
     public static WhenOnSandwichProperties GetProps(CollectibleObject obj)
     {
@@ -31,11 +35,11 @@ public class WhenOnSandwichProperties
         return new()
         {
             Shape = Shape.Clone(),
-            //Textures = Textures,
+            Textures = Textures.ToDictionary(x => x.Key, y => y.Value.Clone()),
             Size = Size,
             Rotate = Rotate,
             CopyLastRotation = CopyLastRotation,
-            Rotation = Rotation
+            Rotation = Rotation.Clone()
         };
     }
 }

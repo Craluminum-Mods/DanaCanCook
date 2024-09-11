@@ -117,7 +117,18 @@ public class ItemSandwich : Item, IContainedMeshSource
         }
 
         ShapeTextureSource texSource = new ShapeTextureSource(capi, shape, shape.ToString());
-        foreach (KeyValuePair<string, CompositeTexture> val in stack.Item.Textures)
+
+        Dictionary<string, CompositeTexture> textures;
+        if (props.Textures == null || !props.Textures.Any())
+        {
+            textures = stack.GetTextures();
+        }
+        else
+        {
+            textures = props.Textures;
+        }
+
+        foreach (KeyValuePair<string, CompositeTexture> val in textures)
         {
             CompositeTexture ctex = val.Value.Clone();
             ctex.Bake(capi.Assets);

@@ -20,9 +20,6 @@
         "danacancook:canPutOnCuttingBoard": true,
         "danacancook:whenOnSandwich": {
             "shape": { "base": "danacancook:item/simple/slicedbread" },
-            //"textures": {
-            //  "bread": { "base": "game:item/food/grain/{type}bread" }
-            //},
             "size": 0.0625, // 1/16
             "rotate": true,
             "rotation": { "avg": 1, "var": 0.1 }
