@@ -22,6 +22,9 @@ public static class Constants
     public const string langSandwich = $"{ModId}:item-sandwich";
     public const string langWhenEaten = $"{ModId}:when-eaten";
 
+    public const string worldConfigSandwichLayersLimit = $"{ModId}:sandwichLayersLimit";
+    public const int defaultSandwichLayersLimit = 16;
+
     public const string cuttingBoardInvClassName = $"{ModId}:cuttingBoard";
 
     public static readonly AssetLocation soundBuild = AssetLocation.Create("sounds/player/build");

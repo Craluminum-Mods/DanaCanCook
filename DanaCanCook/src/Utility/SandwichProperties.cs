@@ -15,7 +15,6 @@ public class SandwichProperties
 {
     protected OrderedDictionary<int, ItemStack> Layers { get; set; } = new();
 
-    public int Count => Layers.Count;
     public bool Any => Layers.Any();
 
     public IEnumerable<ItemStack> GetOrdered(IWorldAccessor world)
@@ -23,15 +22,20 @@ public class SandwichProperties
         return Layers.OrderBy(x => x.Key).Select(x => x.Value);
     }
 
-    public bool TryAdd(ItemStack stack)
+    public bool TryAdd(ItemStack stack, IWorldAccessor world)
     {
-        if (stack == null || stack.StackSize == 0)
+        if (Layers.Count >= GetLayersLimit(world) || stack == null || stack.StackSize == 0)
         {
             return false;
         }
 
         Layers[Layers.Count] = stack;
         return true;
+    }
+
+    public static int GetLayersLimit(IWorldAccessor world)
+    {
+        return world.Config.GetAsInt(worldConfigSandwichLayersLimit);
     }
 
     public static SandwichProperties FromStack(ItemStack stack, IWorldAccessor world)

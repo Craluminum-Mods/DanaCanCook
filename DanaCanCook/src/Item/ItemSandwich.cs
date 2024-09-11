@@ -34,7 +34,7 @@ public class ItemSandwich : Item, IContainedMeshSource
             SandwichProperties props = SandwichProperties.FromStack(slotSandwich.Itemstack, world);
             ItemStack stackIngredient = slotHand.Itemstack.Clone();
             stackIngredient.StackSize = 1;
-            if (props == null || !props.TryAdd(stackIngredient))
+            if (props == null || !props.TryAdd(stackIngredient, world))
             {
                 return false;
             }

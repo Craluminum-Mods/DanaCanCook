@@ -1,4 +1,5 @@
 ﻿using Vintagestory.API.Common;
+using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 
 namespace DanaCanCook;
@@ -10,6 +11,14 @@ public class Core : ModSystem
         api.RegisterItemClass("DanaCanCook.ItemSandwich", typeof(ItemSandwich));
         api.RegisterBlockClass("DanaCanCook.BlockCuttingBoard", typeof(BlockCuttingBoard));
         api.RegisterBlockEntityClass("DanaCanCook.CuttingBoard", typeof(BlockEntityCuttingBoard));
+    }
+
+    public override void StartServerSide(ICoreServerAPI api)
+    {
+        if (!api.World.Config.HasAttribute(worldConfigSandwichLayersLimit))
+        {
+            api.World.Config.SetInt(worldConfigSandwichLayersLimit, defaultSandwichLayersLimit);
+        }
     }
 
     public override void AssetsFinalize(ICoreAPI api)
