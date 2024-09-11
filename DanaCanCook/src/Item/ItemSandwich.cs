@@ -234,6 +234,7 @@ public class ItemSandwich : Item, IContainedMeshSource
         if (props == null || !props.Any || props.GetNutritionProperties(slot, byEntity.World, byEntity) == null)
         {
             base.tryEatBegin(slot, byEntity, ref handling, eatSound, eatSoundRepeats);
+            return;
         }
 
         byEntity.World.RegisterCallback(delegate
@@ -286,39 +287,27 @@ public class ItemSandwich : Item, IContainedMeshSource
     {
         SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, byEntity.World);
         SandwichNutritionProperties nutritionProperties = props.GetNutritionProperties(slot, byEntity.World, byEntity);
-        if (props == null
-            || !props.Any
-            || byEntity.World is not IServerWorldAccessor
-            || nutritionProperties == null
-            || secondsUsed < 0.95f)
+
+        if (props == null || !props.Any || nutritionProperties == null)
         {
             base.tryEatStop(secondsUsed, slot, byEntity);
+            return;
+        }
+
+        if (byEntity.World is not IServerWorldAccessor || !(secondsUsed >= 0.95f))
+        {
+            return;
         }
 
         float spoilState = UpdateAndGetTransitionState(api.World, slot, EnumTransitionType.Perish)?.TransitionLevel ?? 0f;
         float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, slot.Itemstack, byEntity);
         float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, slot.Itemstack, byEntity);
+
+        bool any = false;
         foreach (FoodNutritionProperties property in nutritionProperties.NutritionPropertiesMany)
         {
+            any = true;
             byEntity.ReceiveSaturation(property.Satiety * satLossMul, property.FoodCategory);
-            IPlayer player = null;
-            if (byEntity is EntityPlayer)
-            {
-                player = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
-            }
-
-            slot.TakeOut(1);
-            if (property.EatenStack != null)
-            {
-                if (slot.Empty)
-                {
-                    slot.Itemstack = property.EatenStack.ResolvedItemstack.Clone();
-                }
-                else if (player == null || !player.InventoryManager.TryGiveItemstack(property.EatenStack.ResolvedItemstack.Clone(), slotNotifyEffect: true))
-                {
-                    byEntity.World.SpawnItemEntity(property.EatenStack.ResolvedItemstack.Clone(), byEntity.SidedPos.XYZ);
-                }
-            }
 
             float health = property.Health * healthLossMul;
             float intoxication = byEntity.WatchedAttributes.GetFloat("intoxication");
@@ -331,7 +320,16 @@ public class ItemSandwich : Item, IContainedMeshSource
                     Type = (health > 0f) ? EnumDamageType.Heal : EnumDamageType.Poison
                 }, Math.Abs(health));
             }
+        }
 
+        if (any)
+        {
+            IPlayer player = null;
+            if (byEntity is EntityPlayer)
+            {
+                player = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
+            }
+            slot.TakeOut(1);
             slot.MarkDirty();
             player.InventoryManager.BroadcastHotbarSlot();
         }
