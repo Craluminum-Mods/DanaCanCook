@@ -47,7 +47,9 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             return true;
         }
 
-        if (activeslot.Empty && TryTake(byPlayer, 0))
+        bool storable = ItemSlotCuttingBoard.IsStorable(activeslot?.Itemstack?.Collectible);
+
+        if ((activeslot.Empty || !storable) && TryTake(byPlayer, 0))
         {
             activeslot.MarkDirty();
             invSlot.MarkDirty();
@@ -57,7 +59,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
         }
 
         AssetLocation sound = activeslot?.Itemstack?.Block?.Sounds?.Place;
-        if (ItemSlotCuttingBoard.IsStorable(activeslot?.Itemstack?.Collectible) && TryPut(activeslot, 0))
+        if (storable && TryPut(activeslot, 0))
         {
             Api.World.PlaySoundAt(sound ?? soundBuild, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
             activeslot.MarkDirty();
