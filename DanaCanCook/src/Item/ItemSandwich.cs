@@ -334,4 +334,17 @@ public class ItemSandwich : Item, IContainedMeshSource
             player.InventoryManager.BroadcastHotbarSlot();
         }
     }
+
+    public override ItemStack OnTransitionNow(ItemSlot slot, TransitionableProperties transitionProps)
+    {
+        SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, api.World);
+        if (props == null || !props.Any)
+        {
+            return base.OnTransitionNow(slot, transitionProps);
+        }
+
+        ItemStack stack = transitionProps.TransitionedStack.ResolvedItemstack.Clone();
+        stack.StackSize = GameMath.RoundRandom(api.World.Rand, slot.StackSize * props.GetOrdered(api.World).Sum(x => x.StackSize) * transitionProps.TransitionRatio);
+        return stack;
+    }
 }
