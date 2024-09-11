@@ -11,6 +11,6 @@ public class BlockCuttingBoard : Block
     {
         return world.BlockAccessor.GetBlockEntity(blockSel.Position) is not BlockEntityCuttingBoard blockEntity
             ? base.OnBlockInteractStart(world, byPlayer, blockSel)
-            : blockEntity.OnInteract(byPlayer);
+            : blockEntity.OnInteract(byPlayer) || base.OnBlockInteractStart(world, byPlayer, blockSel);
     }
 }

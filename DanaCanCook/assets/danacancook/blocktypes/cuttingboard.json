@@ -11,7 +11,8 @@
         "offsets": [{ "x": 0, "y": 0.0625, "z": 0 }]
     },
     "behaviors": [
-        { "name": "HorizontalOrientable" }
+        { "name": "HorizontalOrientable" },
+        { "name": "RightClickPickup" }
     ],
     "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "danacancook": ["*-north"] },
     "shape": {
