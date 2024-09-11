@@ -236,14 +236,14 @@ public class ItemSandwich : Item, IContainedMeshSource
 
                 if (Math.Abs(totalHealth) > 0.001f)
                 {
-                    dsc.AppendLine(Lang.Get("{0}, {1} sat, {2} hp",
+                    dsc.AppendLine("- " + Lang.Get("{0}, {1} sat, {2} hp",
                         translatedCategory,
                         totalSat,
                         totalHealth));
                 }
                 else
                 {
-                    dsc.AppendLine(Lang.Get("{0}, {1} sat",
+                    dsc.AppendLine("- " + Lang.Get("{0}, {1} sat",
                         translatedCategory,
                         totalSat));
                 }
