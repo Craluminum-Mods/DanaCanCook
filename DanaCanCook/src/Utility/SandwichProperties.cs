@@ -76,15 +76,33 @@ public class SandwichProperties
         stackWithoutSandwichAttributes.Attributes.RemoveAttribute(attributeSandwichLayers);
         IEnumerable<ItemStack> stacks = new List<ItemStack>() { stackWithoutSandwichAttributes }.Concat(GetOrdered(world));
 
-        dsc.AppendLine(Lang.Get(langSandwichContents));
-        foreach (ItemStack stack in stacks.TakeLast(6))
+        OrderedDictionary<string, int> stackSummary = new OrderedDictionary<string, int>();
+
+        foreach (ItemStack stack in stacks)
         {
             if (stack == null || stack.StackSize <= 0)
             {
                 continue;
             }
 
-            dsc.AppendLine("- " + stack.GetName());
+            string stackName = stack.GetName();
+            if (stack.Collectible is IContainedCustomName ccn)
+            {
+                stackName = ccn.GetContainedInfo(new DummySlot(stack));
+            }
+
+            if (!stackSummary.TryGetValue(stackName, out int currentStackSize))
+            {
+                currentStackSize = 0;
+            }
+            stackSummary[stackName] = currentStackSize + stack.StackSize;
+        }
+
+        dsc.AppendLine(Lang.Get(langSandwichContents));
+
+        foreach (var entry in stackSummary.TakeLast(6))
+        {
+            dsc.AppendLine($"- {Lang.Get("{0}x {1}", entry.Value, entry.Key)}");
         }
 
         return dsc;
