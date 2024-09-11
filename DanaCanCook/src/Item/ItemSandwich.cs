@@ -17,7 +17,7 @@ public class ItemSandwich : Item, IContainedMeshSource
     public static bool TryAdd(ItemSlot slotSandwich, ItemSlot slotHand, IWorldAccessor world)
     {
         bool isSandwich = slotSandwich?.Itemstack?.Collectible is ItemSandwich;
-        bool isSandwichIngredient = slotHand?.Itemstack?.Collectible.Attributes.KeyExists(attributeWhenOnSandwich) == true;
+        bool isSandwichIngredient = slotHand?.Itemstack?.Collectible.Attributes?.KeyExists(attributeWhenOnSandwich) == true;
 
         if (!isSandwich || !isSandwichIngredient)
         {

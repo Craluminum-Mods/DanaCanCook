@@ -1,0 +1,27 @@
+[
+    {
+        "op": "addmerge",
+        "file": "game:itemtypes/food/insect.json",
+        "path": "/attributes",
+        "value": {
+            "danacancook:whenOnSandwichByType": {
+                "*-grub": {
+                    "shape": { "base": "danacancook:item/simple/0.75voxel/grub" },
+                    "textures": {
+                        "grubs": { "base": "game:entity/grub" }
+                    },
+                    "size": 0.046875, // 0.75/16
+                    "rotate": true,
+                    "rotation": { "avg": 1, "var": 0.5 }
+                },
+                "*-termite": {
+                    "shape": { "base": "danacancook:item/simple/0.75voxel/termite" },
+                    "size": 0.046875, // 0.75/16
+                    "rotate": true,
+                    "rotation": { "avg": 1, "var": 0.5 }
+                }
+            }
+        },
+        "side": "Server"
+    }
+]
