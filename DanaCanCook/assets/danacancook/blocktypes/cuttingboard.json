@@ -2,14 +2,27 @@
     "code": "cuttingboard",
     "class": "DanaCanCook.BlockCuttingBoard",
     "entityClass": "DanaCanCook.CuttingBoard",
-    "variantgroups": [{ "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" }],
+    "variantgroups": [
+        { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
+        { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
+    ],
     "attributes": {
         "handbook": { "groupBy": ["cuttingboard-*"] },
         "offsets": [{ "x": 0, "y": 0.0625, "z": 0 }]
     },
-    "behaviors": [],
-    "creativeinventory": { "general": ["*"], "danacancook": ["*"] },
-    "shape": { "base": "block/cuttingboard" },
+    "behaviors": [
+        { "name": "HorizontalOrientable" }
+    ],
+    "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "danacancook": ["*-north"] },
+    "shape": {
+        "base": "block/cuttingboard",
+        "rotateYByType": {
+            "*-north": 0,
+            "*-east": 270,
+            "*-south": 180,
+            "*-west": 90
+        }
+    },
     "textures": {
         "oak": { "base": "game:block/wood/debarked/{wood}" },
         "surface": { "base": "game:block/wood/shelf/surface" }
@@ -45,6 +58,5 @@
         "origin": { "x": 0.5, "y": 0, "z": 0.5 },
         "scale": 6
     },
-    "collisionBox": { "x1": 0.125, "y1": 0, "z1": 0.06, "x2": 0.875, "y2": 0.0625, "z2": 0.94 },
-    "selectionBox": { "x1": 0.125, "y1": 0, "z1": 0.06, "x2": 0.875, "y2": 0.0625, "z2": 0.94 }
+    "collisionSelectionBox": { "x1": 0.125, "y1": 0, "z1": 0.06, "x2": 0.875, "y2": 0.0625, "z2": 0.94, "rotateYByType": { "*-north": 0, "*-east": 270, "*-south": 180, "*-west": 90 } }
 }

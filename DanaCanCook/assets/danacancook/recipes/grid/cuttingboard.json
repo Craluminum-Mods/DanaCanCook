@@ -7,7 +7,7 @@
         },
         "width": 2,
         "height": 2,
-        "output": { "type": "block", "code": "danacancook:cuttingboard-{wood}" }
+        "output": { "type": "block", "code": "danacancook:cuttingboard-{wood}-north" }
     },
     {
         "ingredientPattern": "PO,PP",
@@ -17,6 +17,6 @@
         },
         "width": 2,
         "height": 2,
-        "output": { "type": "block", "code": "danacancook:cuttingboard-{wood}" }
+        "output": { "type": "block", "code": "danacancook:cuttingboard-{wood}-north" }
     }
 ]
