@@ -188,19 +188,54 @@ public class ItemSandwich : Item, IContainedMeshSource
         {
             float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, inSlot.Itemstack, entityPlayer);
             float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, inSlot.Itemstack, entityPlayer);
-            if (Math.Abs(nutritionProps.TotalHealth * healthLossMul) > 0.001f)
+
+            dsc.AppendLine(Lang.Get(langWhenEaten));
+
+            Dictionary<string, (float TotalSat, float TotalHealth)> categorySummary = new Dictionary<string, (float, float)>();
+
+            foreach (FoodNutritionProperties property in nutritionProps.NutritionPropertiesMany)
             {
-                dsc.AppendLine(Lang.Get("When eaten: {0} sat, {1} hp", Math.Round(nutritionProps.TotalSatiety * satLossMul), nutritionProps.TotalHealth * healthLossMul));
-            }
-            else
-            {
-                dsc.AppendLine(Lang.Get("When eaten: {0} sat", Math.Round(nutritionProps.TotalSatiety * satLossMul)));
+                float totalSat = property.Satiety * satLossMul;
+                float totalHealth = property.Health * healthLossMul;
+
+                totalSat = (float)Math.Round(totalSat);
+
+                string category = property.FoodCategory.ToString();
+
+                if (categorySummary.ContainsKey(category))
+                {
+                    categorySummary[category] = (
+                        categorySummary[category].TotalSat + totalSat,
+                        categorySummary[category].TotalHealth + totalHealth
+                    );
+                }
+                else
+                {
+                    categorySummary[category] = (totalSat, totalHealth);
+                }
             }
 
-            dsc.AppendLine("Food Categories: ");
-            foreach (EnumFoodCategory category in nutritionProps.FoodCategories.Distinct())
+            foreach (KeyValuePair<string, (float TotalSat, float TotalHealth)> entry in categorySummary)
             {
-                dsc.AppendLine("- " + Lang.Get("foodcategory-" + category.ToString().ToLowerInvariant())); 
+                string category = entry.Key;
+                float totalSat = entry.Value.TotalSat;
+                float totalHealth = entry.Value.TotalHealth;
+
+                string translatedCategory = Lang.Get("foodcategory-" + category.ToLowerInvariant());
+
+                if (Math.Abs(totalHealth) > 0.001f)
+                {
+                    dsc.AppendLine(Lang.Get("{0}, {1} sat, {2} hp",
+                        translatedCategory,
+                        totalSat,
+                        totalHealth));
+                }
+                else
+                {
+                    dsc.AppendLine(Lang.Get("{0}, {1} sat",
+                        translatedCategory,
+                        totalSat));
+                }
             }
         }
 
