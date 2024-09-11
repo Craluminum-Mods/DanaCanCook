@@ -1,0 +1,18 @@
+[
+    {
+        "op": "addmerge",
+        "file": "game:itemtypes/food/fruit.json",
+        "path": "/attributes",
+        "value": {
+            "danacancook:whenOnSandwichByType": {
+                "*-pineapple": {
+                    "shape": { "base": "danacancook:item/simple/0.1voxel/pineapple-slice" },
+                    "size": 0.00625, // 0.1/16
+                    "rotate": true,
+                    "rotation": { "avg": 1, "var": 0.1 }
+                }
+            }
+        },
+        "side": "Server"
+    }
+]
