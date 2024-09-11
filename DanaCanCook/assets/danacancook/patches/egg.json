@@ -1,0 +1,17 @@
+[
+    {
+        "op": "addmerge",
+        "file": "game:itemtypes/food/egg.json",
+        "path": "/attributes/danacancook:whenOnSandwich",
+        "value": {
+          "shape": { "base": "danacancook:item/simple/0.1voxel/egg" },
+          "textures": {
+            "sandwich-egg": { "base": "game:block/food/meal/group6-spelt-onion-redcurrant-egg-redmeatstew" }
+          },
+          "size": 0.00625, // 0.1/16
+          "rotate": true,
+          "rotation": { "avg": 1, "var": 0.5 }
+        },
+        "side": "Server"
+    }
+]
