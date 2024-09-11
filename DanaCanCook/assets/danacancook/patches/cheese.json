@@ -5,14 +5,14 @@
         "path": "/attributes/danacancook:whenOnSandwichByType",
         "value": {
             "*-blue-1slice": {
-                "shape": { "base": "danacancook:item/simple/cheese-blue-1slice" },
-                "size": 0.03125, // 0.5/16
+                "shape": { "base": "danacancook:item/simple/0.1voxel/cheese-blue-1slice" },
+                "size": 0.00625, // 0.1/16
                 "rotate": true,
                 "rotation": { "avg": 1, "var": 0.1 }
             },
             "*-cheddar-1slice": {
-                "shape": { "base": "danacancook:item/simple/cheese-cheddar-1slice" },
-                "size": 0.03125, // 0.5/16
+                "shape": { "base": "danacancook:item/simple/0.1voxel/cheese-cheddar-1slice" },
+                "size": 0.00625, // 0.1/16
                 "rotate": true,
                 "rotation": { "avg": 1, "var": 0.1 }
             }

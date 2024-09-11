@@ -14,7 +14,7 @@
 		{
 			"name": "CheeseW",
 			"from": [ 6.25, 0.0, 5.5 ],
-			"to": [ 9.75, 0.5, 10.5 ],
+			"to": [ 9.75, 0.1, 10.5 ],
 			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
 			"faces": {
 				"north": { "texture": "#cheddarjack", "uv": [ 2.5, 8.0, 6.0, 8.5 ] },

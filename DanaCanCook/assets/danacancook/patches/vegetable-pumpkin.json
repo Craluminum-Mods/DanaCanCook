@@ -4,8 +4,8 @@
         "file": "game:itemtypes/food/vegetable.json",
         "path": "/attributesByType/*-pumpkin/danacancook:whenOnSandwich",
         "value": {
-            "shape": { "base": "danacancook:item/simple/pumpkin" },
-            "size": 0.03125, // 0.5/16
+            "shape": { "base": "danacancook:item/simple/0.1voxel/pumpkin" },
+            "size": 0.00625, // 0.1/16
             "rotate": true,
             "rotation": { "avg": 1, "var": 0.1 }
         },
