@@ -6,7 +6,7 @@
         "value": {
             "danacancook:whenOnSandwichByType": {
                 "*-grub": {
-                    "shape": { "base": "danacancook:item/simple/0.75voxel/grub" },
+                    "shape": { "base": "danacancook:item/complex/grub" },
                     "textures": {
                         "grubs": { "base": "game:entity/grub" }
                     },
@@ -15,7 +15,7 @@
                     "rotation": { "avg": 1, "var": 0.5 }
                 },
                 "*-termite": {
-                    "shape": { "base": "danacancook:item/simple/0.75voxel/termite" },
+                    "shape": { "base": "danacancook:item/complex/termite" },
                     "size": 0.046875, // 0.75/16
                     "rotate": true,
                     "rotation": { "avg": 1, "var": 0.5 }
