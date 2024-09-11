@@ -6,6 +6,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
@@ -224,6 +225,115 @@ public class ItemSandwich : Item, IContainedMeshSource
         {
             Mod mod = api.ModLoader.GetMod(Code.Domain);
             dsc.AppendLine(Lang.Get("Mod: {0}", mod?.Info.Name ?? Code.Domain));
+        }
+    }
+
+    protected override void tryEatBegin(ItemSlot slot, EntityAgent byEntity, ref EnumHandHandling handling, string eatSound = "eat", int eatSoundRepeats = 1)
+    {
+        SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, byEntity.World);
+        if (props == null || !props.Any || props.GetNutritionProperties(slot, byEntity.World, byEntity) == null)
+        {
+            base.tryEatBegin(slot, byEntity, ref handling, eatSound, eatSoundRepeats);
+        }
+
+        byEntity.World.RegisterCallback(delegate
+        {
+            playEatSound(byEntity, eatSound, eatSoundRepeats);
+        }, 500);
+        byEntity.AnimManager?.StartAnimation("eat");
+        handling = EnumHandHandling.PreventDefault;
+    }
+
+    protected override bool tryEatStep(float secondsUsed, ItemSlot slot, EntityAgent byEntity, ItemStack spawnParticleStack = null)
+    {
+        SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, byEntity.World);
+        if (props == null || !props.Any || props.GetNutritionProperties(slot, byEntity.World, byEntity) == null)
+        {
+            return base.tryEatStep(secondsUsed, slot, byEntity, spawnParticleStack);
+        }
+
+        Vec3d xYZ = byEntity.Pos.AheadCopy(0.40000000596046448).XYZ;
+        xYZ.X += byEntity.LocalEyePos.X;
+        xYZ.Y += byEntity.LocalEyePos.Y - 0.40000000596046448;
+        xYZ.Z += byEntity.LocalEyePos.Z;
+        if (secondsUsed > 0.5f && (int)(30f * secondsUsed) % 7 == 1)
+        {
+            byEntity.World.SpawnCubeParticles(xYZ, spawnParticleStack ?? slot.Itemstack, 0.3f, 4, 0.5f, (byEntity as EntityPlayer)?.Player);
+        }
+
+        if (byEntity.World is IClientWorldAccessor)
+        {
+            ModelTransform modelTransform = new ModelTransform();
+            modelTransform.EnsureDefaultValues();
+            modelTransform.Origin.Set(0f, 0f, 0f);
+            if (secondsUsed > 0.5f)
+            {
+                modelTransform.Translation.Y = Math.Min(0.02f, GameMath.Sin(20f * secondsUsed) / 10f);
+            }
+
+            modelTransform.Translation.X -= Math.Min(1f, secondsUsed * 4f * 1.57f);
+            modelTransform.Translation.Y -= Math.Min(0.05f, secondsUsed * 2f);
+            modelTransform.Rotation.X += Math.Min(30f, secondsUsed * 350f);
+            modelTransform.Rotation.Y += Math.Min(80f, secondsUsed * 350f);
+            byEntity.Controls.UsingHeldItemTransformAfter = modelTransform;
+            return secondsUsed <= 1f;
+        }
+
+        return true;
+    }
+
+    protected override void tryEatStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
+    {
+        SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, byEntity.World);
+        SandwichNutritionProperties nutritionProperties = props.GetNutritionProperties(slot, byEntity.World, byEntity);
+        if (props == null
+            || !props.Any
+            || byEntity.World is not IServerWorldAccessor
+            || nutritionProperties == null
+            || secondsUsed < 0.95f)
+        {
+            base.tryEatStop(secondsUsed, slot, byEntity);
+        }
+
+        float spoilState = UpdateAndGetTransitionState(api.World, slot, EnumTransitionType.Perish)?.TransitionLevel ?? 0f;
+        float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, slot.Itemstack, byEntity);
+        float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, slot.Itemstack, byEntity);
+        foreach (FoodNutritionProperties property in nutritionProperties.NutritionPropertiesMany)
+        {
+            byEntity.ReceiveSaturation(property.Satiety * satLossMul, property.FoodCategory);
+            IPlayer player = null;
+            if (byEntity is EntityPlayer)
+            {
+                player = byEntity.World.PlayerByUid(((EntityPlayer)byEntity).PlayerUID);
+            }
+
+            slot.TakeOut(1);
+            if (property.EatenStack != null)
+            {
+                if (slot.Empty)
+                {
+                    slot.Itemstack = property.EatenStack.ResolvedItemstack.Clone();
+                }
+                else if (player == null || !player.InventoryManager.TryGiveItemstack(property.EatenStack.ResolvedItemstack.Clone(), slotNotifyEffect: true))
+                {
+                    byEntity.World.SpawnItemEntity(property.EatenStack.ResolvedItemstack.Clone(), byEntity.SidedPos.XYZ);
+                }
+            }
+
+            float health = property.Health * healthLossMul;
+            float intoxication = byEntity.WatchedAttributes.GetFloat("intoxication");
+            byEntity.WatchedAttributes.SetFloat("intoxication", Math.Min(1.1f, intoxication + property.Intoxication));
+            if (health != 0f)
+            {
+                byEntity.ReceiveDamage(new DamageSource
+                {
+                    Source = EnumDamageSource.Internal,
+                    Type = (health > 0f) ? EnumDamageType.Heal : EnumDamageType.Poison
+                }, Math.Abs(health));
+            }
+
+            slot.MarkDirty();
+            player.InventoryManager.BroadcastHotbarSlot();
         }
     }
 }
