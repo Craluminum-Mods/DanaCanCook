@@ -189,7 +189,7 @@ public class ItemSandwich : Item, IContainedMeshSource
             }
         }
 
-        props.GetDescription(inSlot, dsc, world);
+        props.GetDescription(inSlot, dsc, world, noLimit: true);
 
         EntityPlayer entityPlayer = (world.Side == EnumAppSide.Client) ? (world as IClientWorldAccessor).Player.Entity : null;
         SandwichNutritionProperties nutritionProps = props.GetNutritionProperties(inSlot, world, entityPlayer);

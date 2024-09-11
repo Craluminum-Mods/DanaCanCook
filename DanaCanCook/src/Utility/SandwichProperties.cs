@@ -74,7 +74,7 @@ public class SandwichProperties
         }
     }
 
-    public StringBuilder GetDescription(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world)
+    public StringBuilder GetDescription(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool noLimit = false)
     {
         ItemStack stackWithoutSandwichAttributes = inSlot.Itemstack.Clone();
         stackWithoutSandwichAttributes.Attributes.RemoveAttribute(attributeSandwichLayers);
@@ -104,7 +104,7 @@ public class SandwichProperties
 
         dsc.AppendLine(Lang.Get(langSandwichContents));
 
-        foreach (KeyValuePair<string, int> entry in stackSummary.TakeLast(6))
+        foreach (KeyValuePair<string, int> entry in noLimit ? stackSummary : stackSummary.TakeLast(6))
         {
             dsc.AppendLine($"- {Lang.Get("{0}x {1}", entry.Value, entry.Key)}");
         }
