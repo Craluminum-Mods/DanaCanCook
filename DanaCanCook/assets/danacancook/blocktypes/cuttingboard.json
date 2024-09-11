@@ -28,21 +28,23 @@
         "break": "game:block/planks",
         "walk": "game:walk/wood"
     },
-
-    "tpHandTransform": {
-        "translation": { "x": -0.9, "y": -3.7, "z": -3.35 },
-        "rotation": { "x": 0, "y": 90, "z": -102 },
-        "scale": 0.25
-    },
-    "fpHandTransform": {
-        "scale": 0.4
-    },
     "guiTransform": {
         "rotation": { "x": -35, "y": -100, "z": 23 },
         "origin": { "x": 0.5, "y": 0, "z": 0.5 },
         "scale": 1.75
     },
-
+    "tpHandTransform": {
+        "translation": { "x": -0.68, "y": -0.4, "z": -0.64 },
+        "rotation": { "x": 90, "y": 180, "z": 180 },
+        "origin": { "x": 0.5, "y": -0, "z": 0.5 },
+        "scale": 0.75
+    },
+    "groundTransform": {
+        "translation": { "x": 0, "y": 0, "z": 0 },
+        "rotation": { "x": 0, "y": -45, "z": 0 },
+        "origin": { "x": 0.5, "y": 0, "z": 0.5 },
+        "scale": 6
+    },
     "collisionBox": { "x1": 0.125, "y1": 0, "z1": 0.06, "x2": 0.875, "y2": 0.0625, "z2": 0.94 },
     "selectionBox": { "x1": 0.125, "y1": 0, "z1": 0.06, "x2": 0.875, "y2": 0.0625, "z2": 0.94 }
 }
