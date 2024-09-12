@@ -37,33 +37,28 @@ public class ItemSandwich : Item, IContainedMeshSource
         }
 
         SandwichProperties propsInHand = SandwichProperties.FromStack(slotHand.Itemstack, world);
-        if (propsInHand == null || !propsInHand.Any)
+        if (propsInHand != null && propsInHand.Any)
         {
-            SandwichProperties props = SandwichProperties.FromStack(slotSandwich.Itemstack, world);
-            ItemStack stackIngredient = slotHand.Itemstack.Clone();
-            stackIngredient.StackSize = 1;
-            if (props == null || !props.TryAdd(stackIngredient, world))
-            {
-                return false;
-            }
-            props.ToStack(slotSandwich.Itemstack);
-            slotHand.TakeOut(1);
-            return true;
+            return false;
         }
 
-        return false;
+        SandwichProperties props = SandwichProperties.FromStack(slotSandwich.Itemstack, world);
+        ItemStack stackIngredient = slotHand.Itemstack.Clone();
+        stackIngredient.StackSize = 1;
+        if (props == null || !props.TryAdd(stackIngredient, world))
+        {
+            return false;
+        }
+        props.ToStack(slotSandwich.Itemstack);
+        slotHand.TakeOut(1);
+        return true;
     }
 
     private static bool TryAddLiquid(ItemSlot slotSandwich, ItemSlot slotLiquid, IPlayer byPlayer, IWorldAccessor world)
     {
         BlockLiquidContainerBase liquidContainer = slotLiquid.Itemstack.Collectible as BlockLiquidContainerBase;
 
-        if (slotLiquid.Itemstack.Collectible is not ILiquidSource liquidSource)
-        {
-            return false;
-        }
-
-        if (!liquidSource.AllowHeldLiquidTransfer)
+        if (slotLiquid.Itemstack.Collectible is not ILiquidSource liquidSource || !liquidSource.AllowHeldLiquidTransfer)
         {
             return false;
         }
