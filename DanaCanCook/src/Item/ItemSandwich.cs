@@ -276,7 +276,7 @@ public class ItemSandwich : Item, IContainedMeshSource
 
     protected override void tryEatBegin(ItemSlot slot, EntityAgent byEntity, ref EnumHandHandling handling, string eatSound = "eat", int eatSoundRepeats = 1)
     {
-        SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, byEntity.World);
+        SandwichProperties props = SandwichProperties.FromStack(slot?.Itemstack, byEntity.World);
         if (props == null || !props.Any || props.GetNutritionProperties(slot, byEntity.World, byEntity) == null)
         {
             base.tryEatBegin(slot, byEntity, ref handling, eatSound, eatSoundRepeats);
@@ -293,7 +293,7 @@ public class ItemSandwich : Item, IContainedMeshSource
 
     protected override bool tryEatStep(float secondsUsed, ItemSlot slot, EntityAgent byEntity, ItemStack spawnParticleStack = null)
     {
-        SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, byEntity.World);
+        SandwichProperties props = SandwichProperties.FromStack(slot?.Itemstack, byEntity.World);
         if (props == null || !props.Any || props.GetNutritionProperties(slot, byEntity.World, byEntity) == null)
         {
             return base.tryEatStep(secondsUsed, slot, byEntity, spawnParticleStack);
@@ -331,7 +331,7 @@ public class ItemSandwich : Item, IContainedMeshSource
 
     protected override void tryEatStop(float secondsUsed, ItemSlot slot, EntityAgent byEntity)
     {
-        SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, byEntity.World);
+        SandwichProperties props = SandwichProperties.FromStack(slot?.Itemstack, byEntity.World);
         SandwichNutritionProperties nutritionProperties = props.GetNutritionProperties(slot, byEntity.World, byEntity);
 
         if (props == null || !props.Any || nutritionProperties == null)

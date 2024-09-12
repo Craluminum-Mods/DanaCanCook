@@ -40,6 +40,11 @@ public class SandwichProperties
 
     public static SandwichProperties FromStack(ItemStack stack, IWorldAccessor world)
     {
+        if (stack?.Collectible is not ItemSandwich)
+        {
+            return null;
+        }
+
         ITreeAttribute treeSandwichLayers = stack.Attributes.GetOrAddTreeAttribute(attributeSandwichLayers);
         SandwichProperties properties = new SandwichProperties();
         foreach ((string key, IAttribute attribute) in treeSandwichLayers)
@@ -54,15 +59,17 @@ public class SandwichProperties
                 }
             }
         }
-        if (!treeSandwichLayers.Any())
-        {
-            stack.Attributes.RemoveAttribute(attributeSandwichLayers);
-        }
+
         return properties;
     }
 
     public void ToStack(ItemStack stack)
     {
+        if (stack?.Collectible is not ItemSandwich)
+        {
+            return;
+        }
+
         if (Layers.Any())
         {
             ITreeAttribute treeSandwichLayers = stack.Attributes.GetOrAddTreeAttribute(attributeSandwichLayers);
