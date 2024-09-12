@@ -20,14 +20,16 @@ public class WhenOnSandwichProperties
 
     public NatFloat Rotation { get; set; } = NatFloat.One;
 
+    public float LitresPerLayer { get; set; } = 0.1f;
 
     public static WhenOnSandwichProperties GetProps(CollectibleObject obj)
     {
-        return obj != null
-            && obj.Attributes != null
-            && obj.Attributes.KeyExists(attributeWhenOnSandwich)
-            ? obj.Attributes[attributeWhenOnSandwich].AsObject<WhenOnSandwichProperties>()
-            : null;
+        return HasAtribute(obj) ? obj.Attributes[attributeWhenOnSandwich].AsObject<WhenOnSandwichProperties>() : null;
+    }
+    
+    public static bool HasAtribute(CollectibleObject obj)
+    {
+        return obj != null && obj.Attributes != null && obj.Attributes.KeyExists(attributeWhenOnSandwich);
     }
 
     public WhenOnSandwichProperties Clone()
@@ -39,7 +41,8 @@ public class WhenOnSandwichProperties
             Size = Size,
             Rotate = Rotate,
             CopyLastRotation = CopyLastRotation,
-            Rotation = Rotation.Clone()
+            Rotation = Rotation.Clone(),
+            LitresPerLayer = LitresPerLayer
         };
     }
 }

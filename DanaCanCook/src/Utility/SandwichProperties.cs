@@ -24,13 +24,17 @@ public class SandwichProperties
 
     public bool TryAdd(ItemStack stack, IWorldAccessor world)
     {
-        if (Layers.Count >= GetLayersLimit(world) || stack == null || stack.StackSize == 0)
+        if (CanAdd(stack, world))
         {
-            return false;
+            Layers[Layers.Count] = stack;
+            return true;
         }
+        return false;
+    }
 
-        Layers[Layers.Count] = stack;
-        return true;
+    public bool CanAdd(ItemStack stack, IWorldAccessor world)
+    {
+        return Layers.Count < GetLayersLimit(world) && stack != null && stack.StackSize > 0;
     }
 
     public static int GetLayersLimit(IWorldAccessor world)
@@ -123,9 +127,61 @@ public class SandwichProperties
     {
         ItemStack[] stacks = new List<ItemStack>() { inSlot.Itemstack }.Concat(GetOrdered(world)).ToArray();
         SandwichNutritionProperties sandwichNutritionProps = new SandwichNutritionProperties();
-        FoodNutritionProperties[] nutritionPropsArray = BlockMeal.GetContentNutritionProperties(world, inSlot, stacks, forEntity as EntityAgent);
+        FoodNutritionProperties[] nutritionPropsArray = GetContentNutritionProperties(world, inSlot, stacks, forEntity as EntityAgent);
         sandwichNutritionProps.NutritionPropertiesMany.AddRange(nutritionPropsArray);
         return sandwichNutritionProps;
+    }
+
+    /// <summary>
+    /// Mixed version of BlockMeal.GetContentNutritionProperties and BlockLiquidContainerBase.GetNutritionProperties
+    /// </summary>
+    public static FoodNutritionProperties[] GetContentNutritionProperties(IWorldAccessor world, ItemSlot inSlot, ItemStack[] contentStacks, EntityAgent forEntity, bool mulWithStacksize = false, float nutritionMul = 1f, float healthMul = 1f)
+    {
+        List<FoodNutritionProperties> list = new List<FoodNutritionProperties>();
+        if (contentStacks == null)
+        {
+            return list.ToArray();
+        }
+
+        for (int i = 0; i < contentStacks.Length; i++)
+        {
+            var contentStack = contentStacks[i];
+            if (contentStacks[i] != null)
+            {
+                CollectibleObject collectible = contentStacks[i].Collectible;
+                FoodNutritionProperties foodNutritionProperties = ((collectible.CombustibleProps == null || collectible.CombustibleProps.SmeltedStack == null) ? collectible.GetNutritionProperties(world, contentStacks[i], forEntity) : collectible.CombustibleProps.SmeltedStack.ResolvedItemstack.Collectible.GetNutritionProperties(world, collectible.CombustibleProps.SmeltedStack.ResolvedItemstack, forEntity));
+                JsonObject attributes = collectible.Attributes;
+                if (attributes != null && attributes["nutritionPropsWhenInMeal"].Exists)
+                {
+                    foodNutritionProperties = collectible.Attributes?["nutritionPropsWhenInMeal"].AsObject<FoodNutritionProperties>();
+                }
+
+                WaterTightContainableProps props = (contentStacks[i] == null) ? null : BlockLiquidContainerBase.GetContainableProps(contentStacks[i]);
+                if (foodNutritionProperties == null && props?.NutritionPropsPerLitre != null)
+                {
+                    FoodNutritionProperties nutriProps = props.NutritionPropsPerLitre.Clone();
+                    float litre = (float)contentStack.StackSize / props.ItemsPerLitre;
+                    nutriProps.Health *= litre;
+                    nutriProps.Satiety *= litre;
+                    foodNutritionProperties = nutriProps;
+                }
+
+                if (foodNutritionProperties != null)
+                {
+                    float stacksize = ((!mulWithStacksize) ? 1 : contentStack.StackSize);
+                    FoodNutritionProperties foodNutritionProperties2 = foodNutritionProperties.Clone();
+                    DummySlot dummySlot = new DummySlot(contentStack, inSlot.Inventory);
+                    float spoilState = contentStack.Collectible.UpdateAndGetTransitionState(world, dummySlot, EnumTransitionType.Perish)?.TransitionLevel ?? 0f;
+                    float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, dummySlot.Itemstack, forEntity);
+                    float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, dummySlot.Itemstack, forEntity);
+                    foodNutritionProperties2.Satiety *= satLossMul * nutritionMul * stacksize;
+                    foodNutritionProperties2.Health *= healthLossMul * healthMul * stacksize;
+                    list.Add(foodNutritionProperties2);
+                }
+            }
+        }
+
+        return list.ToArray();
     }
 
     public override string ToString()

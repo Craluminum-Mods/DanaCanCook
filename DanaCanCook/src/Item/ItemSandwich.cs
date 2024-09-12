@@ -9,27 +9,35 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
+using static Vintagestory.GameContent.BlockLiquidContainerBase;
 
 namespace DanaCanCook;
 
 public class ItemSandwich : Item, IContainedMeshSource
 {
-    public static bool TryAdd(ItemSlot slotSandwich, ItemSlot slotHand, IWorldAccessor world)
+    public static bool TryAdd(ItemSlot slotSandwich, ItemSlot slotHand, IPlayer byPlayer, IWorldAccessor world)
     {
         bool isSandwich = slotSandwich?.Itemstack?.Collectible is ItemSandwich;
-        bool isSandwichIngredient = slotHand?.Itemstack?.Collectible.Attributes?.KeyExists(attributeWhenOnSandwich) == true;
+        var sandwichPropsInHand = SandwichProperties.FromStack(slotHand?.Itemstack, world);
+        bool isSandwichInHand = slotHand?.Itemstack?.Collectible is ItemSandwich && sandwichPropsInHand != null && sandwichPropsInHand.Any;
 
-        if (!isSandwich || !isSandwichIngredient)
+        if (!isSandwich || isSandwichInHand)
+        {
+            return false;
+        }
+
+        if (slotHand?.Itemstack?.Collectible is ILiquidSource && TryAddLiquid(slotSandwich, slotLiquid: slotHand, byPlayer, world))
+        {
+            return true;
+        }
+
+        if (!WhenOnSandwichProperties.HasAtribute(slotHand?.Itemstack?.Collectible))
         {
             return false;
         }
 
         SandwichProperties propsInHand = SandwichProperties.FromStack(slotHand.Itemstack, world);
-        bool isSandwichInHand = slotHand?.Itemstack?.Collectible is ItemSandwich;
-
-        if (!isSandwichInHand
-            || propsInHand == null
-            || !propsInHand.Any)
+        if (propsInHand == null || !propsInHand.Any)
         {
             SandwichProperties props = SandwichProperties.FromStack(slotSandwich.Itemstack, world);
             ItemStack stackIngredient = slotHand.Itemstack.Clone();
@@ -44,6 +52,58 @@ public class ItemSandwich : Item, IContainedMeshSource
         }
 
         return false;
+    }
+
+    private static bool TryAddLiquid(ItemSlot slotSandwich, ItemSlot slotLiquid, IPlayer byPlayer, IWorldAccessor world)
+    {
+        BlockLiquidContainerBase liquidContainer = slotLiquid.Itemstack.Collectible as BlockLiquidContainerBase;
+
+        if (slotLiquid.Itemstack.Collectible is not ILiquidSource liquidSource)
+        {
+            return false;
+        }
+
+        if (!liquidSource.AllowHeldLiquidTransfer)
+        {
+            return false;
+        }
+
+        ItemStack contentStackToMove = liquidSource.GetContent(slotLiquid.Itemstack);
+        WhenOnSandwichProperties whenOnSandwichProps = WhenOnSandwichProperties.GetProps(contentStackToMove?.Collectible);
+        if (whenOnSandwichProps == null)
+        {
+            return false;
+        }
+
+        SandwichProperties props = SandwichProperties.FromStack(slotSandwich.Itemstack, world);
+        if (!props.CanAdd(contentStackToMove, world))
+        {
+            return false;
+        }
+
+        WaterTightContainableProps contentProps = liquidSource.GetContentProps(slotLiquid.Itemstack);
+        int moved = (int)(whenOnSandwichProps.LitresPerLayer * contentProps.ItemsPerLitre);
+        if (liquidSource.GetCurrentLitres(slotLiquid.Itemstack) < whenOnSandwichProps.LitresPerLayer || moved <= 0)
+        {
+            return false;
+        }
+
+        liquidContainer.CallMethod<int>("splitStackAndPerformAction", byPlayer.Entity, slotLiquid, delegate (ItemStack stack)
+        {
+            liquidContainer.TryTakeContent(stack, moved);
+            return moved;
+        });
+
+        ItemStack stackIngredient = contentStackToMove.Clone();
+        stackIngredient.StackSize = moved;
+        if (props == null || !props.TryAdd(stackIngredient, world))
+        {
+            return false;
+        }
+        props.ToStack(slotSandwich.Itemstack);
+
+        liquidContainer.DoLiquidMovedEffects(byPlayer, contentStackToMove, moved, EnumLiquidDirection.Pour);
+        return true;
     }
 
     public override void OnBeforeRender(ICoreClientAPI capi, ItemStack stack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo)

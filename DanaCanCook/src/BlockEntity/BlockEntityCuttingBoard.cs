@@ -38,7 +38,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             return true;
         }
 
-        if (ItemSandwich.TryAdd(invSlot, activeslot, byPlayer.Entity.World))
+        if (ItemSandwich.TryAdd(invSlot, activeslot, byPlayer, byPlayer.Entity.World))
         {
             activeslot.MarkDirty();
             invSlot.MarkDirty();
