@@ -1,13 +1,13 @@
 [
     {
         "op": "addmerge",
-        "file": "game:itemtypes/food/butter.json",
+        "file": "game:itemtypes/resource/fat.json",
         "path": "/attributes/danacancook:whenOnSandwich",
         "value": {
-          "shape": { "base": "danacancook:item/simple/0.1voxel/butter" },
+          "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/other/fat" },
           "size": 0.00625, // 0.1/16
           "rotate": true,
-          "copyLastRotation": true
+          "rotation": { "avg": 1, "var": 0.1 }
         },
         "side": "Server"
     }
