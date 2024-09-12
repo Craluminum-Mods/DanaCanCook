@@ -19,8 +19,8 @@
         "shelvable": true,
         "danacancook:canPutOnCuttingBoard": true,
         "danacancook:whenOnSandwich": {
-            "shape": { "base": "danacancook:item/simple/slicedbread" },
-            "shapeLast": { "base": "danacancook:item/simple/slicedbread-top" },
+            "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/slicedbread" },
+            "shapeLast": { "base": "danacancook:item/sandwich_ingredients_vanilla/slicedbread-top" },
             "size": 0.0625, // 1/16
             "rotate": true,
             "rotation": { "avg": 1, "var": 0.1 }

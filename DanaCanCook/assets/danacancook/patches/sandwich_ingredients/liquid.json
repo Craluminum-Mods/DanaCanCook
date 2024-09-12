@@ -4,7 +4,7 @@
         "file": "game:itemtypes/liquid/honeyportion.json",
         "path": "/attributes/danacancook:whenOnSandwich",
         "value": {
-            "shape": { "base": "danacancook:item/simple/liquid" },
+            "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/liquid" },
             "textures": {
               "material":  { "base": "game:block/liquid/honey" }
             },
@@ -20,7 +20,7 @@
         "file": "game:itemtypes/liquid/dairy/milkportion.json",
         "path": "/attributes/danacancook:whenOnSandwich",
         "value": {
-            "shape": { "base": "danacancook:item/simple/liquid" },
+            "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/liquid" },
             "textures": {
               "material":  { "base": "game:block/food/dairy/milk" }
             },
