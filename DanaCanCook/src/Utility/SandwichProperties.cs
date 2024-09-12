@@ -91,7 +91,7 @@ public class SandwichProperties
         stackWithoutSandwichAttributes.Attributes.RemoveAttribute(attributeSandwichLayers);
         IEnumerable<ItemStack> stacks = new List<ItemStack>() { stackWithoutSandwichAttributes }.Concat(GetOrdered(world));
 
-        OrderedDictionary<string, int> stackSummary = new OrderedDictionary<string, int>();
+        OrderedDictionary<string, float> stackSummary = new OrderedDictionary<string, float>();
 
         foreach (ItemStack stack in stacks)
         {
@@ -100,13 +100,31 @@ public class SandwichProperties
                 continue;
             }
 
+            WaterTightContainableProps containableProps = BlockLiquidContainerBase.GetContainableProps(stack);
+            if (containableProps != null)
+            {
+                float litres = stack.StackSize / containableProps.ItemsPerLitre;
+                if (litres > 0f)
+                {
+                    string inContainerName = Lang.Get(stack.Collectible.Code.Domain + ":incontainer-" + stack.Class.ToString().ToLowerInvariant() + "-" + stack.Collectible.Code.Path);
+
+                    if (!stackSummary.ContainsKey(inContainerName))
+                    {
+                        stackSummary[inContainerName] = 0f;
+                    }
+                    stackSummary[inContainerName] += litres;
+
+                    continue;
+                }
+            }
+
             string stackName = stack.GetName();
             if (stack.Collectible is IContainedCustomName ccn)
             {
                 stackName = ccn.GetContainedInfo(new DummySlot(stack));
             }
 
-            if (!stackSummary.TryGetValue(stackName, out int currentStackSize))
+            if (!stackSummary.TryGetValue(stackName, out float currentStackSize))
             {
                 currentStackSize = 0;
             }
@@ -114,10 +132,16 @@ public class SandwichProperties
         }
 
         dsc.AppendLine(Lang.Get(langSandwichContents));
-
-        foreach (KeyValuePair<string, int> entry in noLimit ? stackSummary : stackSummary.TakeLast(6))
+        foreach (KeyValuePair<string, float> entry in noLimit ? stackSummary : stackSummary.TakeLast(6))
         {
-            dsc.AppendLine($"- {Lang.Get("{0}x {1}", entry.Value, entry.Key)}");
+            if (entry.Value % 1 == 0)
+            {
+                dsc.AppendLine($"- {Lang.Get("{0}x {1}", (int)entry.Value, entry.Key)}");
+            }
+            else
+            {
+                dsc.AppendLine($"- {Lang.Get("{0} litres of {1}", entry.Value, entry.Key)}");
+            }
         }
 
         return dsc;
@@ -150,11 +174,6 @@ public class SandwichProperties
             {
                 CollectibleObject collectible = contentStacks[i].Collectible;
                 FoodNutritionProperties foodNutritionProperties = ((collectible.CombustibleProps == null || collectible.CombustibleProps.SmeltedStack == null) ? collectible.GetNutritionProperties(world, contentStacks[i], forEntity) : collectible.CombustibleProps.SmeltedStack.ResolvedItemstack.Collectible.GetNutritionProperties(world, collectible.CombustibleProps.SmeltedStack.ResolvedItemstack, forEntity));
-                JsonObject attributes = collectible.Attributes;
-                if (attributes != null && attributes["nutritionPropsWhenInMeal"].Exists)
-                {
-                    foodNutritionProperties = collectible.Attributes?["nutritionPropsWhenInMeal"].AsObject<FoodNutritionProperties>();
-                }
 
                 WaterTightContainableProps props = (contentStacks[i] == null) ? null : BlockLiquidContainerBase.GetContainableProps(contentStacks[i]);
                 if (foodNutritionProperties == null && props?.NutritionPropsPerLitre != null)
@@ -164,6 +183,11 @@ public class SandwichProperties
                     nutriProps.Health *= litre;
                     nutriProps.Satiety *= litre;
                     foodNutritionProperties = nutriProps;
+                }
+
+                if (foodNutritionProperties == null && collectible.Attributes != null && collectible.Attributes["nutritionPropsWhenInMeal"].Exists)
+                {
+                    foodNutritionProperties = collectible.Attributes?["nutritionPropsWhenInMeal"].AsObject<FoodNutritionProperties>();
                 }
 
                 if (foodNutritionProperties != null)
