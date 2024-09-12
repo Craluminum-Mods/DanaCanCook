@@ -109,7 +109,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     {
         if (Inventory.Count > slotId && !inventory[slotId].Empty)
         {
-            ItemStack stack = inventory[slotId].TakeOut(1);
+            ItemStack stack = inventory[slotId].TakeOutWhole();
             if (byPlayer.InventoryManager.TryGiveItemstack(stack))
             {
                 AssetLocation sound = stack?.Block?.Sounds?.Place;
