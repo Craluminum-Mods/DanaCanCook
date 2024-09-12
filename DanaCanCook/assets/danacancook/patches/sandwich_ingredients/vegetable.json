@@ -47,6 +47,30 @@
                 "size": 0.00625, // 0.1/16
                 "rotate": true,
                 "rotation": { "avg": 1, "var": 0.5 }
+            },
+            "*-bellpepper": {
+                "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/bellpepper" },
+                "size": 0.00625, // 0.1/16
+                "rotate": true,
+                "rotation": { "avg": 1, "var": 0.5 }
+            },
+            "*-onion": {
+                "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/onion" },
+                "size": 0.00625, // 0.1/16
+                "rotate": true,
+                "rotation": { "avg": 1, "var": 0.5 }
+            },
+            "*-parsnip": {
+                "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/parsnip" },
+                "size": 0.00625, // 0.1/16
+                "rotate": true,
+                "rotation": { "avg": 1, "var": 0.5 }
+            },
+            "*-turnip": {
+                "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/turnip" },
+                "size": 0.00625, // 0.1/16
+                "rotate": true,
+                "rotation": { "avg": 1, "var": 0.5 }
             }
         },
         "side": "Server"
