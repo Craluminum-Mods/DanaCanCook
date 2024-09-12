@@ -131,15 +131,17 @@ public class ItemSandwich : Item, IContainedMeshSource
             stacks.AddRange(ordered);
         }
 
-        foreach (ItemStack ingredientStack in stacks)
+        for (int i = 0; i < stacks.Count; i++)
         {
-            MeshData ingredientMesh = GenIngredientMesh(api as ICoreClientAPI, ref prevSize, ref rotation, ingredientStack);
+            ItemStack ingredientStack = stacks[i];
+            bool last = i == stacks.Count - 1 && stacks.Count != 1;
+            MeshData ingredientMesh = GenIngredientMesh(api as ICoreClientAPI, ref prevSize, ref rotation, ingredientStack, last);
             mesh.AddMeshData(ingredientMesh);
         }
         return mesh;
     }
 
-    private static MeshData GenIngredientMesh(ICoreClientAPI capi, ref float prevSize, ref float rotation, ItemStack stack)
+    private static MeshData GenIngredientMesh(ICoreClientAPI capi, ref float prevSize, ref float rotation, ItemStack stack, bool last = false)
     {
         MeshData mesh = new MeshData(4, 3);
 
@@ -163,6 +165,11 @@ public class ItemSandwich : Item, IContainedMeshSource
         }
 
         CompositeShape rcshape = props.Shape.Clone();
+        if (last && props.ShapeLast != null)
+        {
+            rcshape = props.ShapeLast.Clone();
+        }
+
         rcshape.Base.WithPathAppendixOnce(".json").WithPathPrefixOnce("shapes/");
         Shape shape = capi.Assets.TryGet(rcshape.Base)?.ToObject<Shape>();
         if (shape == null)

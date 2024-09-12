@@ -10,6 +10,8 @@ public class WhenOnSandwichProperties
 {
     public CompositeShape Shape { get; set; }
 
+    public CompositeShape ShapeLast { get; set; }
+
     public Dictionary<string, CompositeTexture> Textures { get; set; } = new();
 
     public float Size { get; set; } = 0.0625f;
@@ -37,6 +39,7 @@ public class WhenOnSandwichProperties
         return new()
         {
             Shape = Shape.Clone(),
+            ShapeLast = ShapeLast.Clone(),
             Textures = Textures.ToDictionary(x => x.Key, y => y.Value.Clone()),
             Size = Size,
             Rotate = Rotate,
