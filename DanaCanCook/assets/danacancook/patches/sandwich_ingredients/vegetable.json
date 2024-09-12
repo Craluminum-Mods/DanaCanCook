@@ -40,6 +40,42 @@
     {
         "op": "addmerge",
         "file": "game:itemtypes/food/vegetable.json",
+        "path": "/attributesByType/*-cassava/danacancook:whenOnSandwich",
+        "value": {
+            "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/cassava" },
+            "size": 0.00625, // 0.1/16
+            "rotate": true,
+            "rotation": { "avg": 1, "var": 0.5 }
+        },
+        "side": "Server"
+    },
+    {
+        "op": "addmerge",
+        "file": "game:itemtypes/food/vegetable.json",
+        "path": "/attributesByType/*-cookedcattailroot/danacancook:whenOnSandwich",
+        "value": {
+            "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/cattailsroot-cooked" },
+            "size": 0.00625, // 0.1/16
+            "rotate": true,
+            "rotation": { "avg": 1, "var": 0.5 }
+        },
+        "side": "Server"
+    },
+    {
+        "op": "addmerge",
+        "file": "game:itemtypes/food/vegetable.json",
+        "path": "/attributesByType/*-cookedpapyrusroot/danacancook:whenOnSandwich",
+        "value": {
+            "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/papyrusroot-cooked" },
+            "size": 0.00625, // 0.1/16
+            "rotate": true,
+            "rotation": { "avg": 1, "var": 0.5 }
+        },
+        "side": "Server"
+    },
+    {
+        "op": "addmerge",
+        "file": "game:itemtypes/food/vegetable.json",
         "path": "/attributesByType/*/danacancook:whenOnSandwichByType",
         "value": {
             "*-carrot": {
