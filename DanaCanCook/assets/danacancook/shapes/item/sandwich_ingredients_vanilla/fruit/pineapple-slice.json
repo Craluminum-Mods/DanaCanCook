@@ -8,7 +8,6 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"pineapple": "item/food/fruit/pineapple"
 	},
 	"elements": [
 		{

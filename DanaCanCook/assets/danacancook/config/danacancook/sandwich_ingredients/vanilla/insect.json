@@ -1,0 +1,18 @@
+{
+    // can't use generic shape for insects because they have very complex models
+    "insect-grub": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/insect/grub" },
+        "textures": {
+            "grubs": { "base": "game:entity/grub" }
+        },
+        "size": 0.046875, // 0.75/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.5 }
+    },
+    "insect-termite": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/insect/termite" },
+        "size": 0.046875, // 0.75/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.5 }
+    }
+}

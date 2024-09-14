@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -32,6 +33,11 @@ public class WhenOnSandwichProperties
     public static bool HasAtribute(CollectibleObject obj)
     {
         return obj != null && obj.Attributes != null && obj.Attributes.KeyExists(attributeWhenOnSandwich);
+    }
+        
+    public static void SetAtribute(CollectibleObject obj, WhenOnSandwichProperties props)
+    {
+        obj.Attributes.Token[attributeWhenOnSandwich] = JToken.FromObject(props);
     }
 
     public WhenOnSandwichProperties Clone()

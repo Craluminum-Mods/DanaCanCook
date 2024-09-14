@@ -8,7 +8,6 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"meat": "item/food/meat/raw"
 	},
 	"elements": [
 		{

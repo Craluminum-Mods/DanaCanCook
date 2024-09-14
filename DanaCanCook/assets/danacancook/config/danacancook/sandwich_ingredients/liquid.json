@@ -1,0 +1,9 @@
+{
+    "@(.*portion|.*portion.*|portion.*)": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/liquid" },
+        "size": 0.00625, // 0.1/16
+        "rotate": true,
+        "copyLastRotation": true,
+        "litresPerLayer": 0.1
+    }
+}

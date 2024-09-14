@@ -9,7 +9,6 @@
 		"cassava": [8,8]
 	},
 	"textures": {
-		"cassava": "item/food/vegetable/cassava-peeled"
 	},
 	"elements": [
 		{

@@ -1,0 +1,19 @@
+{
+    // can't use generic shape for egg because it uses meal texture
+    "egg-chicken-raw": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/other/egg" },
+        "textures": {
+            "sandwich-egg": { "base": "game:block/food/meal/group6-spelt-onion-redcurrant-egg-redmeatstew" }
+        },
+        "size": 0.00625, // 0.1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.5 }
+    },
+
+    "fat": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/liquid" },
+        "size": 0.00625, // 0.1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    }
+}

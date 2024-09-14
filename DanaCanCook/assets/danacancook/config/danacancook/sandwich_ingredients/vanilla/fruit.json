@@ -1,0 +1,8 @@
+{
+    "fruit-pineapple": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/fruit/pineapple-slice" },
+        "size": 0.00625, // 0.1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    }
+}

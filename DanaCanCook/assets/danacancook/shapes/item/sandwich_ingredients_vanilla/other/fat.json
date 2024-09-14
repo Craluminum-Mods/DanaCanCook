@@ -10,7 +10,6 @@
 		"animalfat": [16,16]
 	},
 	"textures": {
-		"animalfat": "item/resource/fat"
 	},
 	"elements": [
 		{

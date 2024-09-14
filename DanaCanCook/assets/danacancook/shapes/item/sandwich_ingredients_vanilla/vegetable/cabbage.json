@@ -8,7 +8,6 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"cabbage": "block/plant/crop/cabbage/cabbage"
 	},
 	"elements": [
 		{

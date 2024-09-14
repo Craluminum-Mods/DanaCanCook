@@ -8,8 +8,7 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"sandwich-egg": "block/food/meal/group6-spelt-onion-redcurrant-egg-redmeatstew"
-	},
+       },
 	"elements": [
 		{
 			"name": "origin",

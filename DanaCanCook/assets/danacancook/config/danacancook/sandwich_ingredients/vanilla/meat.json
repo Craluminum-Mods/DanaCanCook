@@ -1,0 +1,33 @@
+{
+    // can't use generic shape for meat because they have very complex models
+    "@redmeat-(cooked|cured)": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/meat/red" },
+        "size": 0.0625, // 1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    },
+    "redmeat-vintage": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/meat/vintage" },
+        "size": 0.15625, // 2.5/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    },
+    "@bushmeat-(cooked|cured)": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/meat/bushmeat" },
+        "size": 0.0625, // 1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    },
+    "@poultry-(cooked|cured)": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/meat/poultry" },
+        "size": 0.09375, // 1.5/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    },
+    "@fish-(cooked|cured)": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/meat/fish" },
+        "size": 0.0625, // 1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    }
+}
