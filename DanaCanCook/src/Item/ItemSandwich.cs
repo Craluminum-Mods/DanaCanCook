@@ -193,6 +193,11 @@ public class ItemSandwich : Item, IContainedMeshSource
         foreach (KeyValuePair<string, CompositeTexture> val in textures)
         {
             CompositeTexture ctex = val.Value.Clone();
+            foreach ((string key, string value) in stack.Collectible.Variant)
+            {
+                ctex.FillPlaceholder($"{{{key}}}", value);
+            }
+
             ctex.Bake(capi.Assets);
             texSource.textures[val.Key] = ctex;
         }
