@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
-using Vintagestory.Common;
 
 namespace DanaCanCook;
 
 public class Core : ModSystem
 {
-    public Dictionary<string, WhenOnSandwichProperties> PropertiesPatches { get; set; } = new();
+    public Dictionary<string, WhenOnSandwichProperties> SandwichPatches { get; set; } = new();
+    public Dictionary<string, CuttingBoardProperties> CuttingBoardPatches { get; set; } = new();
+    public Dictionary<string, bool> CuttingBoardStorablePatches { get; set; } = new();
 
     public override void Start(ICoreAPI api)
     {
@@ -32,11 +34,37 @@ public class Core : ModSystem
         {
             try
             {
-                PropertiesPatches.AddRange(asset.ToObject<Dictionary<string, WhenOnSandwichProperties>>());
+                SandwichPatches.AddRange(asset.ToObject<Dictionary<string, WhenOnSandwichProperties>>());
             }
             catch (Exception e)
             {
                 api.Logger.Error($"[Dana Can Cook] Failed loading sandwich ingredients from file {asset.Location}:");
+                api.Logger.Error(e);
+            }
+        }
+
+        foreach (IAsset asset in api.Assets.GetMany("config/danacancook/cuttingboard_properties/"))
+        {
+            try
+            {
+                CuttingBoardPatches.AddRange(asset.ToObject<Dictionary<string, CuttingBoardProperties>>());
+            }
+            catch (Exception e)
+            {
+                api.Logger.Error($"[Dana Can Cook] Failed loading cutting board patches from file {asset.Location}:");
+                api.Logger.Error(e);
+            }
+        }
+
+        foreach (IAsset asset in api.Assets.GetMany("config/danacancook/cuttingboard_storable/"))
+        {
+            try
+            {
+                CuttingBoardStorablePatches.AddRange(asset.ToObject<Dictionary<string, bool>>());
+            }
+            catch (Exception e)
+            {
+                api.Logger.Error($"[Dana Can Cook] Failed loading 'storable on cutting board' patches from file {asset.Location}:");
                 api.Logger.Error(e);
             }
         }
@@ -51,7 +79,7 @@ public class Core : ModSystem
                 continue;
             }
 
-            foreach ((string code, WhenOnSandwichProperties props) in PropertiesPatches)
+            foreach ((string code, WhenOnSandwichProperties props) in SandwichPatches)
             {
                 if (!WhenOnSandwichProperties.HasAtribute(obj) && obj.HasNutrition() && obj.WildCardMatch(code))
                 {
@@ -60,16 +88,43 @@ public class Core : ModSystem
                     break;
                 }
             }
-
-            if (WhenOnSandwichProperties.HasAtribute(obj) && !obj.CreativeInventoryTabs.Contains(ModId))
+            
+            foreach ((string code, CuttingBoardProperties props) in CuttingBoardPatches)
             {
-                obj.CreativeInventoryTabs = obj.CreativeInventoryTabs.Append(ModId);
+                if (!CuttingBoardProperties.HasAtribute(obj) && obj.WildCardMatch(code))
+                {
+                    obj.EnsureAttributesNotNull();
+                    CuttingBoardProperties.SetAtribute(obj, props);
+                    break;
+                }
+            }
+
+            foreach ((string code, bool storable) in CuttingBoardStorablePatches)
+            {
+                if ((obj.Attributes == null || !obj.Attributes.KeyExists(attributeCodeCuttingBoard)) && obj.WildCardMatch(code))
+                {
+                    obj.EnsureAttributesNotNull();
+                    obj.Attributes.Token[attributeCodeCuttingBoard] = JToken.FromObject(storable);
+                    break;
+                }
+            }
+
+            if (WhenOnSandwichProperties.HasAtribute(obj) || obj?.Attributes?[attributeCodeCuttingBoard]?.AsBool() == true)
+            {
+                obj.CreativeInventoryTabs ??= Array.Empty<string>();
+
+                if (!obj.CreativeInventoryTabs.Contains(ModId))
+                {
+                    obj.CreativeInventoryTabs = obj.CreativeInventoryTabs.Append(ModId);
+                }
             }
         }
     }
 
     public override void Dispose()
     {
-        PropertiesPatches?.Clear();
+        SandwichPatches?.Clear();
+        CuttingBoardPatches?.Clear();
+        CuttingBoardStorablePatches?.Clear();
     }
 }

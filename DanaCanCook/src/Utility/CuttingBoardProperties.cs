@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Common;
+﻿using Newtonsoft.Json.Linq;
+using Vintagestory.API.Common;
 
 namespace DanaCanCook;
 
@@ -10,11 +11,19 @@ public class CuttingBoardProperties
 
     public static CuttingBoardProperties GetProps(CollectibleObject obj)
     {
-        return obj != null
-            && obj.Attributes != null
-            && obj.Attributes.KeyExists(attributeCuttingBoardProperties)
+        return HasAtribute(obj)
             ? obj.Attributes[attributeCuttingBoardProperties].AsObject<CuttingBoardProperties>()
             : null;
+    }
+
+    public static bool HasAtribute(CollectibleObject obj)
+    {
+        return obj != null && obj.Attributes != null && obj.Attributes.KeyExists(attributeCuttingBoardProperties);
+    }
+
+    public static void SetAtribute(CollectibleObject obj, CuttingBoardProperties props)
+    {
+        obj.Attributes.Token[attributeCuttingBoardProperties] = JToken.FromObject(props);
     }
 
     public CuttingBoardProperties Clone()

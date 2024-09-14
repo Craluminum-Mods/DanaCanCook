@@ -75,9 +75,18 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     private bool TryCustomInteraction(IPlayer byPlayer, ItemSlot invSlot, ItemSlot activeslot)
     {
         CuttingBoardProperties props = CuttingBoardProperties.GetProps(invSlot?.Itemstack?.Collectible);
-        if (props != null
-            && props.ConvertTo != null
-            && props.ConvertTo.Resolve(Api.World, "cuttingBoard")
+        
+        if (props == null || props.ConvertTo == null)
+        {
+            return false;
+        }
+
+        foreach ((string key, string value) in invSlot.Itemstack.Collectible.Variant)
+        {
+            props.ConvertTo.FillPlaceHolder($"{{{key}}}", value);
+        }
+
+        if (props.ConvertTo.Resolve(Api.World, "cuttingBoard")
             && activeslot?.Itemstack?.Collectible?.Tool != null
             && props.Tool != null
             && props.Tool.Contains((EnumTool)activeslot.Itemstack.Collectible.Tool)

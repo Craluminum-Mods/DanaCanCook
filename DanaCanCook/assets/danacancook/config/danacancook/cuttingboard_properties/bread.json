@@ -1,0 +1,10 @@
+{
+  "bread-*-perfect": {
+    "convertTo": {
+      "type": "item",
+      "code": "danacancook:slicedbread-{type}-{state}",
+      "quantity": 2
+    },
+    "tool": ["Knife", "Sword"]
+  }
+}
