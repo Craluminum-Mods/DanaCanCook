@@ -23,7 +23,7 @@ public static class Extensions
 
         if (obj.Attributes == null)
         {
-            return true;
+            return false;
         }
 
         if (obj.Attributes.KeyExists("nutritionPropsWhenInMeal"))

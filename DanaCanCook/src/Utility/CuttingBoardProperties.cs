@@ -18,7 +18,7 @@ public class CuttingBoardProperties
 
     public static bool HasAtribute(CollectibleObject obj)
     {
-        return obj != null && obj.Attributes != null && obj.Attributes.KeyExists(attributeCuttingBoardProperties);
+        return obj != null && obj.Attributes != null && obj.Attributes.KeyExists(attributeCuttingBoardProperties) && obj.Attributes[attributeCuttingBoardProperties].AsBool();
     }
 
     public static void SetAtribute(CollectibleObject obj, CuttingBoardProperties props)

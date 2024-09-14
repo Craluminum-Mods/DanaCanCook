@@ -81,7 +81,7 @@ public class Core : ModSystem
 
             foreach ((string code, WhenOnSandwichProperties props) in SandwichPatches)
             {
-                if (!WhenOnSandwichProperties.HasAtribute(obj) && obj.HasNutrition() && obj.WildCardMatch(code))
+                if (obj.WildCardMatch(code) && !WhenOnSandwichProperties.HasAtribute(obj) && obj.HasNutrition())
                 {
                     obj.EnsureAttributesNotNull();
                     WhenOnSandwichProperties.SetAtribute(obj, props);
@@ -91,7 +91,7 @@ public class Core : ModSystem
             
             foreach ((string code, CuttingBoardProperties props) in CuttingBoardPatches)
             {
-                if (!CuttingBoardProperties.HasAtribute(obj) && obj.WildCardMatch(code))
+                if (obj.WildCardMatch(code) && !CuttingBoardProperties.HasAtribute(obj))
                 {
                     obj.EnsureAttributesNotNull();
                     CuttingBoardProperties.SetAtribute(obj, props);
@@ -101,7 +101,7 @@ public class Core : ModSystem
 
             foreach ((string code, bool storable) in CuttingBoardStorablePatches)
             {
-                if ((obj.Attributes == null || !obj.Attributes.KeyExists(attributeCodeCuttingBoard)) && obj.WildCardMatch(code))
+                if (obj.WildCardMatch(code) && (obj.Attributes == null || !obj.Attributes.KeyExists(attributeCodeCuttingBoard)))
                 {
                     obj.EnsureAttributesNotNull();
                     obj.Attributes.Token[attributeCodeCuttingBoard] = JToken.FromObject(storable);
