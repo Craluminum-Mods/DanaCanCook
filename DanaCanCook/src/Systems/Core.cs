@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
@@ -111,9 +112,7 @@ public class Core : ModSystem
 
             if (WhenOnSandwichProperties.HasAtribute(obj) || obj?.Attributes?[attributeCodeCuttingBoard]?.AsBool() == true)
             {
-                obj.CreativeInventoryTabs ??= Array.Empty<string>();
-
-                if (!obj.CreativeInventoryTabs.Contains(ModId))
+                if (obj.CreativeInventoryTabs != null && obj.CreativeInventoryTabs.Any() && !obj.CreativeInventoryTabs.Contains(ModId))
                 {
                     obj.CreativeInventoryTabs = obj.CreativeInventoryTabs.Append(ModId);
                 }
