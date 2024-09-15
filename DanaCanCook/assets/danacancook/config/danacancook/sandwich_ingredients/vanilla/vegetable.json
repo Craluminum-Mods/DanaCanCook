@@ -5,20 +5,8 @@
         "rotate": true,
         "rotation": { "avg": 1, "var": 0.1 }
     },
-    "vegetable-pumpkin": {
-        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/pumpkin" },
-        "size": 0.00625, // 0.1/16
-        "rotate": true,
-        "rotation": { "avg": 1, "var": 0.1 }
-    },
     "vegetable-cabbage": {
         "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/cabbage" },
-        "size": 0.00625, // 0.1/16
-        "rotate": true,
-        "rotation": { "avg": 1, "var": 0.5 }
-    },
-    "vegetable-cassava": {
-        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/cassava" },
         "size": 0.00625, // 0.1/16
         "rotate": true,
         "rotation": { "avg": 1, "var": 0.5 }
@@ -29,44 +17,14 @@
         "rotate": true,
         "rotation": { "avg": 1, "var": 0.5 }
     },
-    "vegetable-carrot": {
-        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/carrot" },
-        "size": 0.00625, // 0.1/16
-        "rotate": true,
-        "rotation": { "avg": 1, "var": 0.5 }
-    },
-    "vegetable-bellpepper": {
-        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/bellpepper" },
-        "size": 0.00625, // 0.1/16
-        "rotate": true,
-        "rotation": { "avg": 1, "var": 0.5 }
-    },
-    "vegetable-onion": {
-        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/onion" },
-        "size": 0.00625, // 0.1/16
-        "rotate": true,
-        "rotation": { "avg": 1, "var": 0.5 }
-    },
-    "vegetable-parsnip": {
-        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/parsnip" },
-        "size": 0.00625, // 0.1/16
-        "rotate": true,
-        "rotation": { "avg": 1, "var": 0.5 }
-    },
-    "vegetable-turnip": {
-        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/vegetable/turnip" },
-        "size": 0.00625, // 0.1/16
-        "rotate": true,
-        "rotation": { "avg": 1, "var": 0.5 }
-    },
-    "vegetable-olive": {
+    "vegetable-*": {
         "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/generic_6" },
         "textures":  {
           "all":  { "base": "game:block/food/pie/fill-{type}" }
         },
         "size": 0.00625, // 0.1/16
         "rotate": true,
-        "rotation": { "avg": 1, "var": 0.5 }
+        "rotation": { "avg": 1, "var": 0.1 }
     },
     "@(pickledvegetable|pickledlegume)-.*": {
         "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/generic_6" },
