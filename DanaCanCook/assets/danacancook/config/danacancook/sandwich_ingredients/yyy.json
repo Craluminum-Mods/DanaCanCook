@@ -1,0 +1,9 @@
+{
+    // used for testing new ingredients
+    //"*": {
+    //  "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/generic_6" },
+    //  "size": 0.00625, // 0.1/16
+    //  "rotate": true,
+    //  "rotation": { "avg": 1, "var": 0.1 }
+    //}
+}
