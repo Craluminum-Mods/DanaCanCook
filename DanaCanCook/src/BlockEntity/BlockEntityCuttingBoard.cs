@@ -81,11 +81,6 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             return false;
         }
 
-        foreach ((string key, string value) in invSlot.Itemstack.Collectible.Variant)
-        {
-            props.ConvertTo.FillPlaceHolder($"{{{key}}}", value);
-        }
-
         if (props.ConvertTo.Resolve(Api.World, "cuttingBoard")
             && activeslot?.Itemstack?.Collectible?.Tool != null
             && props.Tool != null
