@@ -58,5 +58,23 @@
         "size": 0.00625, // 0.1/16
         "rotate": true,
         "rotation": { "avg": 1, "var": 0.5 }
-    }
+    },
+    "vegetable-olive": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/generic_6" },
+        "textures":  {
+          "all":  { "base": "game:block/food/pie/fill-{type}" }
+        },
+        "size": 0.00625, // 0.1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.5 }
+    },
+    "@(pickledvegetable|pickledlegume)-.*": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/generic_6" },
+        "textures":  {
+          "all":  { "base": "game:block/food/pie/fill-{type}" }
+        },
+        "size": 0.00625, // 0.1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    },
 }

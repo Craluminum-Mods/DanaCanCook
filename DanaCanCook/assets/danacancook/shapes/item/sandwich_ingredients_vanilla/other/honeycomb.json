@@ -1,0 +1,30 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"honeycomb": "block/reed/beehive/honeycomb",
+		"honeycomb-side": "block/reed/beehive/honeycomb-side"
+	},
+	"elements": [
+		{
+			"name": "Cube2",
+			"from": [ 5.5, 0.0, 6.25 ],
+			"to": [ 10.5, 0.1, 9.75 ],
+			"rotationOrigin": [ 8.0, 0.0, 8.0 ],
+			"rotationY": 90.0,
+			"faces": {
+				"north": { "texture": "#honeycomb-side", "uv": [ 5.0, 9.0, 10.0, 9.5 ] },
+				"east": { "texture": "#honeycomb-side", "uv": [ 5.0, 5.0, 8.5, 5.5 ] },
+				"south": { "texture": "#honeycomb-side", "uv": [ 8.0, 10.0, 13.0, 10.5 ] },
+				"west": { "texture": "#honeycomb-side", "uv": [ 5.0, 11.0, 8.5, 11.5 ] },
+				"up": { "texture": "#honeycomb", "uv": [ 9.0, 2.0, 14.0, 5.5 ] },
+				"down": { "texture": "#honeycomb", "uv": [ 6.0, 8.0, 11.0, 11.5 ] }
+			}
+		}
+	]}

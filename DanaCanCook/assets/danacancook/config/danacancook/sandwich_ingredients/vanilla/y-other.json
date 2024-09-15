@@ -15,5 +15,28 @@
         "size": 0.00625, // 0.1/16
         "rotate": true,
         "rotation": { "avg": 1, "var": 0.1 }
-    }
+    },
+
+    // can't use generic shape for honeycomb because it has sensitive UVs
+    "honeycomb": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/other/honeycomb" },
+        "textures":  {
+          "honeycomb": { "base": "game:block/reed/beehive/honeycomb" },
+		      "honeycomb-side": { "base": "game:block/reed/beehive/honeycomb-side" }
+        },
+        "size": 0.00625, // 0.1/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.1 }
+    },
+
+    // can't use generic shape for honeycomb because it has sensitive UVs
+    "treeseed-walnut": {
+        "shape": { "base": "danacancook:item/sandwich_ingredients_vanilla/other/treeseed-walnut" },
+        "textures":  {
+          "walnut": { "base": "game:item/resource/seeds/walnut" }
+        },
+        "size": 0.09375, // 1.5/16
+        "rotate": true,
+        "rotation": { "avg": 1, "var": 0.5 }
+    },
 }
