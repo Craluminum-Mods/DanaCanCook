@@ -204,8 +204,8 @@ public class SandwichProperties
                     }
                     catch
                     {
-                        list.Add(foodNutritionProperties2);
                     }
+                    list.Add(foodNutritionProperties2);
                 }
             }
         }
