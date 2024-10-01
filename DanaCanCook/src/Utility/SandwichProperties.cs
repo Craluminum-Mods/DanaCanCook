@@ -169,7 +169,6 @@ public class SandwichProperties
 
         for (int i = 0; i < contentStacks.Length; i++)
         {
-            var contentStack = contentStacks[i];
             if (contentStacks[i] != null)
             {
                 CollectibleObject collectible = contentStacks[i].Collectible;
@@ -179,7 +178,7 @@ public class SandwichProperties
                 if (foodNutritionProperties == null && props?.NutritionPropsPerLitre != null)
                 {
                     FoodNutritionProperties nutriProps = props.NutritionPropsPerLitre.Clone();
-                    float litre = (float)contentStack.StackSize / props.ItemsPerLitre;
+                    float litre = (float)contentStacks[i].StackSize / props.ItemsPerLitre;
                     nutriProps.Health *= litre;
                     nutriProps.Satiety *= litre;
                     foodNutritionProperties = nutriProps;
@@ -192,15 +191,21 @@ public class SandwichProperties
 
                 if (foodNutritionProperties != null)
                 {
-                    float stacksize = ((!mulWithStacksize) ? 1 : contentStack.StackSize);
+                    float stacksize = ((!mulWithStacksize) ? 1 : contentStacks[i].StackSize);
                     FoodNutritionProperties foodNutritionProperties2 = foodNutritionProperties.Clone();
-                    DummySlot dummySlot = new DummySlot(contentStack, inSlot.Inventory);
-                    float spoilState = contentStack.Collectible.UpdateAndGetTransitionState(world, dummySlot, EnumTransitionType.Perish)?.TransitionLevel ?? 0f;
-                    float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, dummySlot.Itemstack, forEntity);
-                    float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, dummySlot.Itemstack, forEntity);
-                    foodNutritionProperties2.Satiety *= satLossMul * nutritionMul * stacksize;
-                    foodNutritionProperties2.Health *= healthLossMul * healthMul * stacksize;
-                    list.Add(foodNutritionProperties2);
+                    DummySlot dummySlot = new DummySlot(contentStacks[i], inSlot.Inventory);
+                    try
+                    {
+                        float spoilState = contentStacks[i].Collectible.UpdateAndGetTransitionState(world, dummySlot, EnumTransitionType.Perish)?.TransitionLevel ?? 0f;
+                        float satLossMul = GlobalConstants.FoodSpoilageSatLossMul(spoilState, dummySlot.Itemstack, forEntity);
+                        float healthLossMul = GlobalConstants.FoodSpoilageHealthLossMul(spoilState, dummySlot.Itemstack, forEntity);
+                        foodNutritionProperties2.Satiety *= satLossMul * nutritionMul * stacksize;
+                        foodNutritionProperties2.Health *= healthLossMul * healthMul * stacksize;
+                    }
+                    catch
+                    {
+                        list.Add(foodNutritionProperties2);
+                    }
                 }
             }
         }
