@@ -1,0 +1,15 @@
+{
+    "item-sandwich": "Сендвіч",
+    "block-cuttingboard*": "Дошка для нарізання",
+
+    "item-slicedbread-spelt-perfect": "Порізаний хліб зі спельти",
+    "item-slicedbread-rye-perfect": "Порізаний хліб із жита",
+    "item-slicedbread-flax-perfect": "Порізаний хліб із льону",
+    "item-slicedbread-rice-perfect": "Порізаний хліб із рису",
+    "item-slicedbread-cassava-perfect": "Порізаний хліб із маніоку",
+    "item-slicedbread-amaranth-perfect": "Порізаний хліб із щириці",
+    "item-slicedbread-sunflower-perfect": "Порізаний хліб із соняшника",
+
+    "contents-sandwich": "Вміст сендвіча: ",
+    "when-eaten": "Коли з'їдено:"
+}
