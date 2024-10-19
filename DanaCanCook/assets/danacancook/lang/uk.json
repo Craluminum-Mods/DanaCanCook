@@ -11,5 +11,8 @@
     "item-slicedbread-sunflower-perfect": "Порізаний хліб із соняшника",
 
     "contents-sandwich": "Вміст сендвіча: ",
-    "when-eaten": "Коли з'їдено:"
+    "when-eaten": "Коли з'їдено:",
+
+    "category-and-saturation-and-hp": "{0}, {1} насичення, {2} здоров'я",
+    "category-and-saturation": "{0}, {1} насичення"
 }

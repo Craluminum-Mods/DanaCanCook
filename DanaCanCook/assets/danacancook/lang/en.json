@@ -13,6 +13,8 @@
     "item-slicedbread-sunflower-perfect": "Sunflower sliced bread",
 
     "contents-sandwich": "Sandwich contents: ",
-    "when-eaten": "When eaten: "
+    "when-eaten": "When eaten: ",
 
+    "category-and-saturation-and-hp": "{0}, {1} sat, {2} hp",
+    "category-and-saturation": "{0}, {1} sat"
 }
