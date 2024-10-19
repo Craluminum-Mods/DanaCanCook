@@ -21,6 +21,8 @@ public static class Constants
     public const string langSandwichContents = $"{ModId}:contents-sandwich";
     public const string langSandwich = $"{ModId}:item-sandwich";
     public const string langWhenEaten = $"{ModId}:when-eaten";
+    public const string langCategorySaturationHealth = $"{ModId}:category-and-saturation-and-hp";
+    public const string langCategorySaturation = $"{ModId}:category-and-saturation";
 
     public const string worldConfigSandwichLayersLimit = $"{ModId}:sandwichLayersLimit";
     public const int defaultSandwichLayersLimit = 16;
