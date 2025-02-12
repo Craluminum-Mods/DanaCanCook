@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vintagestory.API.Client;
@@ -74,22 +75,27 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
 
     private bool TryCustomInteraction(IPlayer byPlayer, ItemSlot invSlot, ItemSlot activeslot)
     {
+        if (invSlot.Empty || activeslot.Empty) return false;
+
         CuttingBoardProperties props = CuttingBoardProperties.GetProps(invSlot?.Itemstack?.Collectible);
-        
-        if (props == null || props.ConvertTo == null)
+        JsonItemStack output = props?.ConvertTo?.Clone();
+
+        foreach (KeyValuePair<string, string> variant in invSlot.Itemstack.Collectible.Variant)
         {
-            return false;
+            output?.FillPlaceHolder(variant.Key, variant.Value);
         }
 
-        if (props.ConvertTo.Resolve(Api.World, "cuttingBoard")
-            && activeslot?.Itemstack?.Collectible?.Tool != null
+        output?.Resolve(Api.World, "cuttingBoard");
+        if (output == null || output.ResolvedItemstack == null) return false;
+
+        if (activeslot?.Itemstack?.Collectible?.Tool != null
             && props.Tool != null
             && props.Tool.Contains((EnumTool)activeslot.Itemstack.Collectible.Tool)
             && activeslot.Itemstack.Collectible.GetRemainingDurability(activeslot.Itemstack) > 0)
         {
             invSlot.TakeOut(1);
             activeslot.Itemstack.Collectible.DamageItem(Api.World, byPlayer.Entity, activeslot);
-            ItemStack stack = props.ConvertTo.ResolvedItemstack;
+            ItemStack stack = output.ResolvedItemstack;
             if (!byPlayer.InventoryManager.TryGiveItemstack(stack, true))
             {
                 Api.World.SpawnItemEntity(stack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));

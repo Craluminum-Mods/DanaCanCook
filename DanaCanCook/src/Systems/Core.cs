@@ -94,11 +94,6 @@ public class Core : ModSystem
             {
                 if (obj.WildCardMatch(code) && !CuttingBoardProperties.HasAtribute(obj))
                 {
-                    foreach ((string key, string value) in obj.Variant)
-                    {
-                        props.ConvertTo.FillPlaceHolder(key, value);
-                    }
-
                     obj.EnsureAttributesNotNull();
                     CuttingBoardProperties.SetAtribute(obj, props);
                     break;
