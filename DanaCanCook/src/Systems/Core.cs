@@ -14,6 +14,8 @@ public class Core : ModSystem
     public Dictionary<string, CuttingBoardProperties> CuttingBoardPatches { get; set; } = new();
     public Dictionary<string, bool> CuttingBoardStorablePatches { get; set; } = new();
 
+    public static Core GetInstance(ICoreAPI api) => api.ModLoader.GetModSystem<Core>();
+
     public override void Start(ICoreAPI api)
     {
         api.RegisterItemClass("DanaCanCook.ItemSandwich", typeof(ItemSandwich));

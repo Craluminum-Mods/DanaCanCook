@@ -117,7 +117,7 @@ public class ItemSandwich : Item, IContainedMeshSource
 
     public MeshData GenMesh(ItemStack stack, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos)
     {
-        MeshData mesh = new MeshData(4, 3);
+        MeshData mesh = new MeshData(32, 32).WithXyzFaces().WithRenderpasses().WithColorMaps();
 
         float prevSize = 0;
         float rotation = 0;
@@ -135,15 +135,15 @@ public class ItemSandwich : Item, IContainedMeshSource
         {
             ItemStack ingredientStack = stacks[i];
             bool last = i == stacks.Count - 1 && stacks.Count != 1;
-            MeshData ingredientMesh = GenIngredientMesh(api as ICoreClientAPI, ref prevSize, ref rotation, ingredientStack, last);
+            MeshData ingredientMesh = GenIngredientMesh(api as ICoreClientAPI, targetAtlas, ref prevSize, ref rotation, ingredientStack, last);
             mesh.AddMeshData(ingredientMesh);
         }
         return mesh;
     }
 
-    private static MeshData GenIngredientMesh(ICoreClientAPI capi, ref float prevSize, ref float rotation, ItemStack stack, bool last = false)
+    private static MeshData GenIngredientMesh(ICoreClientAPI capi, ITextureAtlasAPI targetAtlas, ref float prevSize, ref float rotation, ItemStack stack, bool last = false)
     {
-        MeshData mesh = new MeshData(4, 3);
+        MeshData mesh = new MeshData(32, 32).WithXyzFaces().WithRenderpasses().WithColorMaps();
 
         WhenOnSandwichProperties props = WhenOnSandwichProperties.GetProps(stack?.Collectible);
         if (props == null)
@@ -178,7 +178,7 @@ public class ItemSandwich : Item, IContainedMeshSource
             return mesh;
         }
 
-        ShapeTextureSource texSource = new ShapeTextureSource(capi, shape, shape.ToString());
+        UniversalShapeTextureSource texSource = new UniversalShapeTextureSource(capi, targetAtlas, shape, rcshape.Base.ToString());
 
         Dictionary<string, CompositeTexture> textures;
         if (props.Textures == null || !props.Textures.Any())

@@ -24,7 +24,7 @@ public static class Constants
     public const string langCategorySaturationHealth = $"{ModId}:category-and-saturation-and-hp";
     public const string langCategorySaturation = $"{ModId}:category-and-saturation";
 
-    public const string worldConfigSandwichLayersLimit = $"{ModId}:sandwichLayersLimit";
+    public const string worldConfigSandwichLayersLimit = $"{ModId}_sandwichLayersLimit";
     public const int defaultSandwichLayersLimit = 16;
 
     public const string cuttingBoardInvClassName = $"{ModId}:cuttingBoard";
