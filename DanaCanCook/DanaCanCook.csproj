@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>bin\$(Configuration)\Mods\mod</OutputPath>
 	</PropertyGroup>
@@ -69,10 +69,6 @@
 		</Reference>
 		<Reference Include="OpenTK.Mathematics">
 			<HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Mathematics.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-		<Reference Include="Lib2d">
-			<HintPath>**/Lib/Lib2d.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
