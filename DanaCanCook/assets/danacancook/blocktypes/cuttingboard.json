@@ -2,20 +2,56 @@
     "code": "cuttingboard",
     "class": "DanaCanCook.BlockCuttingBoard",
     "entityClass": "DanaCanCook.CuttingBoard",
-    "variantgroups": [
-        { "code": "wood", "states": ["aged"], "loadFromProperties": "block/wood" },
-        { "code": "side", "loadFromProperties": "abstract/horizontalorientation" }
-    ],
+    "variantgroups": [{ "code": "side", "loadFromProperties": "abstract/horizontalorientation" }],
     "attributes": {
         "handbook": { "groupBy": ["cuttingboard-*"] },
         "offsets": [{ "x": 0, "y": 0.0625, "z": 0 }]
     },
     "behaviors": [
-        { "name": "HorizontalOrientable" },
+        // to handle drops properly, call HorizontalOrientable before BlockShapeTexturesFromAttributes
+        { "name": "AttributeRenderingLibrary.HorizontalOrientable" },
+        {
+            "name": "AttributeRenderingLibrary.BlockShapeTexturesFromAttributes",
+            "properties": {
+                "name": {
+                    "*": ["danacancook:block-cuttingboard-*", " (", "material-{wood}", ")"]
+                },
+                "textures": {
+                    "wood-*": {
+                        "oak": { "base": "game:block/wood/debarked/{wood}" }
+                    },
+                    "*": {
+                        "oak": { "base": "game:block/wood/debarked/oak" }
+                    }
+                }
+            }
+        },
         { "name": "RightClickPickup" },
         { "name": "Unstable" }
     ],
-    "creativeinventory": { "general": ["*-north"], "decorative": ["*-north"], "danacancook": ["*-north"] },
+    "entityBehaviors": [{ "name": "AttributeRenderingLibrary.ShapeTexturesFromAttributes" }],
+    "creativeInventoryStacksByType": {
+        "*-north": [
+            {
+                "tabs": ["general", "decorative", "danacancook"],
+                "stacks": [
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "birch" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "oak" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "maple" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "pine" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "acacia" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "kapok" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "baldcypress" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "larch" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "redwood" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "ebony" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "walnut" } } },
+                    { "type": "block", "code": "cuttingboard-north", "attributes": { "types": { "wood": "purpleheart" } } }
+                ]
+            }
+        ]
+    },
+
     "shape": {
         "base": "block/cuttingboard",
         "rotateYByType": {
@@ -26,7 +62,6 @@
         }
     },
     "textures": {
-        "oak": { "base": "game:block/wood/debarked/{wood}" },
         "surface": { "base": "game:block/wood/shelf/surface" }
     },
     "blockmaterial": "Wood",

@@ -2,7 +2,7 @@
 
 namespace DanaCanCook;
 
-public class BlockCuttingBoard : Block
+public class BlockCuttingBoard : BlockGeneric
 {
     public override void OnLoaded(ICoreAPI api)
     {
