@@ -83,7 +83,7 @@ public class ItemSandwich : Item, IContainedMeshSource
             return false;
         }
 
-        liquidContainer.CallMethod<int>("splitStackAndPerformAction", byPlayer.Entity, slotLiquid, delegate (ItemStack stack)
+        liquidContainer.SplitStackAndPerformAction(byPlayer.Entity, slotLiquid, delegate (ItemStack stack)
         {
             liquidContainer.TryTakeContent(stack, moved);
             return moved;
