@@ -26,6 +26,7 @@ public class SandwichProperties
     {
         if (CanAdd(stack, world))
         {
+            if (world.Side.IsClient()) return true;
             Layers[Layers.Count] = stack;
             return true;
         }
@@ -146,7 +147,7 @@ public class SandwichProperties
 
         return dsc;
     }
-    
+
     public SandwichNutritionProperties GetNutritionProperties(ItemSlot inSlot, IWorldAccessor world, Entity forEntity)
     {
         ItemStack[] stacks = new List<ItemStack>() { inSlot.Itemstack }.Concat(GetOrdered(world)).ToArray();

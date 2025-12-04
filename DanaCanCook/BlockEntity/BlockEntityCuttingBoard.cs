@@ -5,6 +5,7 @@ using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
@@ -13,7 +14,7 @@ namespace DanaCanCook;
 public class BlockEntityCuttingBoard : BlockEntityDisplay
 {
     private readonly InventoryGeneric inventory;
-   
+
     public const int SlotCount = 1;
 
     public override InventoryBase Inventory => inventory;
@@ -93,6 +94,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             && props.Tool.Contains((EnumTool)activeslot.Itemstack.Collectible.Tool)
             && activeslot.Itemstack.Collectible.GetRemainingDurability(activeslot.Itemstack) > 0)
         {
+            if (Api.Side.IsClient()) return true;
             invSlot.TakeOut(1);
             activeslot.Itemstack.Collectible.DamageItem(Api.World, byPlayer.Entity, activeslot);
             ItemStack stack = output.ResolvedItemstack;
@@ -109,6 +111,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     {
         if (Inventory.Count > slotId && inventory[slotId].Empty)
         {
+            if (Api.Side.IsClient()) return true;
             int amount = slot.TryPutInto(Api.World, inventory[slotId]);
             return amount > 0;
         }
@@ -119,6 +122,7 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
     {
         if (Inventory.Count > slotId && !inventory[slotId].Empty)
         {
+            if (Api.Side.IsClient()) return true;
             ItemStack stack = inventory[slotId].TakeOutWhole();
             if (byPlayer.InventoryManager.TryGiveItemstack(stack))
             {
@@ -179,4 +183,12 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
         }
         return tfMatrices;
     }
+
+    public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
+    {
+        base.FromTreeAttributes(tree, worldForResolving);
+        RedrawAfterReceivingTreeAttributes(worldForResolving);
+    }
+
+
 }

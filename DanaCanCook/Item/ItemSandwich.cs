@@ -49,6 +49,7 @@ public class ItemSandwich : Item, IContainedMeshSource
         {
             return false;
         }
+        if (world.Side.IsClient()) return true;
         props.ToStack(slotSandwich.Itemstack);
         slotHand.TakeOut(1);
         return true;
@@ -82,6 +83,8 @@ public class ItemSandwich : Item, IContainedMeshSource
         {
             return false;
         }
+
+        if (world.Side.IsClient()) return true;
 
         liquidContainer.SplitStackAndPerformAction(byPlayer.Entity, slotLiquid, delegate (ItemStack stack)
         {
