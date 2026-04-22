@@ -60,10 +60,10 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             return true;
         }
 
-        AssetLocation sound = activeslot?.Itemstack?.Block?.Sounds?.Place;
+        SoundAttributes sound = activeslot?.Itemstack?.Block?.Sounds?.Place ?? new SoundAttributes(soundBuild, true);
         if (storable && TryPut(activeslot, 0))
         {
-            Api.World.PlaySoundAt(sound ?? soundBuild, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
+            Api.World.PlaySoundAt(sound, byPlayer.Entity, byPlayer);
             activeslot.MarkDirty();
             invSlot.MarkDirty();
             updateMeshes();
@@ -126,8 +126,8 @@ public class BlockEntityCuttingBoard : BlockEntityDisplay
             ItemStack stack = inventory[slotId].TakeOutWhole();
             if (byPlayer.InventoryManager.TryGiveItemstack(stack))
             {
-                AssetLocation sound = stack?.Block?.Sounds?.Place;
-                Api.World.PlaySoundAt(sound ?? soundBuild, byPlayer.Entity, byPlayer, randomizePitch: true, 16f);
+                SoundAttributes sound = stack?.Block?.Sounds?.Place ?? new SoundAttributes(soundBuild, true);
+                Api.World.PlaySoundAt(sound, byPlayer.Entity, byPlayer);
             }
             if (stack.StackSize > 0)
             {

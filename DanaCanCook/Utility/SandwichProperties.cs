@@ -4,7 +4,6 @@ using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
-using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
@@ -50,9 +49,9 @@ public class SandwichProperties
             return null;
         }
 
-        ITreeAttribute treeSandwichLayers = stack.Attributes.GetOrAddTreeAttribute(attributeSandwichLayers);
+        Vintagestory.API.Datastructures.ITreeAttribute treeSandwichLayers = stack.Attributes.GetOrAddTreeAttribute(attributeSandwichLayers);
         SandwichProperties properties = new SandwichProperties();
-        foreach ((string key, IAttribute attribute) in treeSandwichLayers)
+        foreach ((string key, Vintagestory.API.Datastructures.IAttribute attribute) in treeSandwichLayers)
         {
             int index = key.ToInt();
             if (!properties.Layers.ContainsKey(index))
@@ -77,7 +76,7 @@ public class SandwichProperties
 
         if (Layers.Any())
         {
-            ITreeAttribute treeSandwichLayers = stack.Attributes.GetOrAddTreeAttribute(attributeSandwichLayers);
+            Vintagestory.API.Datastructures.ITreeAttribute treeSandwichLayers = stack.Attributes.GetOrAddTreeAttribute(attributeSandwichLayers);
 
             foreach ((int key, ItemStack val) in Layers)
             {
@@ -228,6 +227,6 @@ public class SandwichProperties
 
     private static string StackToString(ItemStack stack)
     {
-        return new ItemstackAttribute(stack).ToJsonToken();
+        return new Vintagestory.API.Datastructures.ItemstackAttribute(stack).ToJsonToken();
     }
 }

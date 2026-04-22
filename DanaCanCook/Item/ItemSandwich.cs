@@ -108,26 +108,26 @@ public class ItemSandwich : Item, IContainedMeshSource
     {
         base.OnBeforeRender(capi, stack, target, ref renderinfo);
 
-        string key = GetMeshCacheKey(stack);
+        string key = GetMeshCacheKey(new DummySlot(stack));
         Dictionary<string, MultiTextureMeshRef> InvMeshes = ObjectCacheUtil.GetOrCreate(capi, "danacancook:sandwich-invmeshes", () => new Dictionary<string, MultiTextureMeshRef>());
         if (!InvMeshes.TryGetValue(key, out MultiTextureMeshRef meshref))
         {
-            MeshData mesh = GenMesh(stack, capi.ItemTextureAtlas, null);
+            MeshData mesh = GenMesh(new DummySlot(stack), capi.ItemTextureAtlas, null);
             meshref = InvMeshes[key] = capi.Render.UploadMultiTextureMesh(mesh);
         }
         renderinfo.ModelRef = meshref;
     }
 
-    public MeshData GenMesh(ItemStack stack, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos)
+    public MeshData GenMesh(ItemSlot slot, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos)
     {
         MeshData mesh = new MeshData(32, 32).WithXyzFaces().WithRenderpasses().WithColorMaps();
 
         float prevSize = 0;
         float rotation = 0;
 
-        List<ItemStack> stacks = new() { stack };
+        List<ItemStack> stacks = new() { slot.Itemstack };
 
-        SandwichProperties properties = SandwichProperties.FromStack(stack, api.World);
+        SandwichProperties properties = SandwichProperties.FromStack(slot.Itemstack, api.World);
         IEnumerable<ItemStack> ordered = properties?.GetOrdered(api.World);
         if (ordered != null)
         {
@@ -219,9 +219,9 @@ public class ItemSandwich : Item, IContainedMeshSource
         return mesh;
     }
 
-    public string GetMeshCacheKey(ItemStack stack)
+    public string GetMeshCacheKey(ItemSlot slot)
     {
-        SandwichProperties props = SandwichProperties.FromStack(stack, (api as ICoreClientAPI).World);
+        SandwichProperties props = SandwichProperties.FromStack(slot.Itemstack, (api as ICoreClientAPI).World);
         if (props == null || !props.Any)
         {
             return Code.ToString();
